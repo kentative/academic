@@ -1,0 +1,91 @@
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "net.saliman:gradle-cobertura-plugin:2.5.4"
+  }
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+apply plugin: 'net.saliman.cobertura'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+sourceCompatibility = 9
+	
+group = 'ksl.academic'
+version = 1.0
+
+dependencies {
+
+	compile 'org.slf4j:slf4j-api:1.7.21'
+	compile 'ch.qos.logback:logback-classic:1.2.1'
+	
+	// https://mvnrepository.com/artifact/commons-codec/commons-codec
+	compile group: 'commons-codec', name: 'commons-codec', version: '+'
+	
+	compile 'commons-validator:commons-validator:+'
+	compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.+'
+	
+	
+	compile 'com.google.code.gson:gson:+'
+	compile 'com.google.guava:guava:+'
+	compile 'junit:junit:+'	
+	
+	compile group: 'org.jgrapht', name: 'jgrapht-core', version: '1.2.0'	
+	
+	testCompile 'junit:junit:+'	
+	testCompile 'org.jmockit:jmockit:+'
+	
+}
+
+test {
+    jvmArgs "-javaagent:${classpath.find { it.name.contains("jmockit") }.absolutePath}"
+}
+
+eclipse {
+	classpath {
+		downloadSources = true
+		downloadJavadoc = true
+	}
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+jar {
+    from {
+            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    
+    manifest {
+        attributes(
+        	"Implementation-Title": project.name,
+            "Implementation-Version": version,
+            "Main-Class": "ksl.academic.algorithm.chp5.Binary",
+            "Class-Path": ".",
+            "Premain-class":"ksl.academic.instrumentation.InstrumentationAgent",
+            "Agent-class": "ksl.academic.instrumentation.InstrumentationAgent"
+        )
+    }
+}
+
+artifacts {
+    archives jar
+    archives sourcesJar
+    archives javadocJar
+}
