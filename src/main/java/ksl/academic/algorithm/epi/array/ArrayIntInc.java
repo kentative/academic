@@ -2,8 +2,16 @@ package ksl.academic.algorithm.epi.array;
 
 import ksl.academic.algorithm.Utility;
 
+/**
+ * The Class ArrayIntInc.
+ */
 public class ArrayIntInc {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		
 		int[] data = {-9,9,9,0};
@@ -14,6 +22,12 @@ public class ArrayIntInc {
 		
 	}
 	
+	/**
+	 * Increment.
+	 *
+	 * @param data the data
+	 * @return the int[]
+	 */
 	static int[] increment(int[] data) {
 		
 		// check for valid input
@@ -37,9 +51,10 @@ public class ArrayIntInc {
 	}
 	
 	/**
-	 * This version handles negative
-	 * @param data
-	 * @return
+	 * This version handles negative.
+	 *
+	 * @param data the data
+	 * @return the int[]
 	 */
 	static int[] increment2(int[] data) {
 		
@@ -78,9 +93,10 @@ public class ArrayIntInc {
 	}
 	
 	/**
-	 * This version handles negative
-	 * @param data
-	 * @return
+	 * This version handles negative.
+	 *
+	 * @param data the data
+	 * @return the int[]
 	 */
 	static int[] incrementBoard(int[] data) {
 		
