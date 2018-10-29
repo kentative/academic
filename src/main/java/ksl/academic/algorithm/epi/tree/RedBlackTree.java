@@ -3,6 +3,8 @@ package ksl.academic.algorithm.epi.tree;
 import java.util.HashMap;
 import java.util.Map;
 
+import ksl.academic.structure.tree.Node;
+
 public class RedBlackTree {
 	
 	public static void main(String[] args) {

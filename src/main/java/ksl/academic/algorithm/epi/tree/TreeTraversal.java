@@ -7,6 +7,9 @@ import java.util.List;
 
 import com.google.common.base.Preconditions;
 
+import ksl.academic.structure.tree.Node;
+import ksl.academic.structure.tree.TreeUtil;
+
 
 /**
  * Same as #DepthFirstTraversal
@@ -18,9 +21,9 @@ public class TreeTraversal {
 
 	public static void main(String[] args) {
 		Node root = new Node(26);
-		add(root, 17, 41);
-		add(root.left, 17, 21, true);
-		add(root.right, 30, 47);
+		TreeUtil.add(root, 17, 41);
+		TreeUtil.add(root.left, 17, 21, true);
+		TreeUtil.add(root.right, 30, 47);
 		
 		System.out.println(TreeUtil.printTree(root));
 		
@@ -140,16 +143,6 @@ public class TreeTraversal {
 			queue.add(x.left);
 			queue.add(x.right);
 		}
-	}
-	
-	private static void add(Node node, int left, int right) {
-		node.left = new Node(left);
-		node.right = new Node(right);
-	}
-	
-	private static void add(Node node, int left, int right, boolean isRed) {
-		node.left = new Node(left, isRed);
-		node.right = new Node(right, isRed);
 	}
 	
 	public static void inorderItr2(Node n) {

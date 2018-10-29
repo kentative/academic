@@ -1,5 +1,7 @@
 package ksl.academic.algorithm.epi.tree;
 
+import ksl.academic.structure.tree.Node;
+
 public class IsFoldable {
 
 	/* Returns true if the given tree can be folded */

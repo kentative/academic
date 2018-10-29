@@ -14,10 +14,12 @@ import com.google.common.collect.MultimapBuilder;
 
 import ksl.academic.algorithm.epi.graph.TaskScheduling;
 
+// TODO: Auto-generated Javadoc
 /**
- * @see TaskScheduling for barebone Graph implementation without Guava
- * @author Kent
+ * The Class Graph.
  *
+ * @author Kent
+ * @see TaskScheduling for barebone Graph implementation without Guava
  */
 public class Graph {
 	
@@ -29,15 +31,11 @@ public class Graph {
 	 **/
 	ListMultimap<Vertex, Vertex> adjList;
 
-	/**
-	 * The list of edges 
-	 * key - the edge id - constructed from the id of vertices 
-	 * value - edge
-	 */
+	/** The list of edges  key - the edge id - constructed from the id of vertices  value - edge. */
 	Map<String, Edge> edges;
 
 	/**
-	 * Constructs a empty graph
+	 * Constructs a empty graph.
 	 */
 	public Graph() {
 		adjList = MultimapBuilder.hashKeys().arrayListValues().build();
@@ -75,19 +73,42 @@ public class Graph {
 		adjList.get(v).addAll(Arrays.asList(adj));
 	}
 	
+	/**
+	 * Gets the vertices.
+	 *
+	 * @return the vertices
+	 */
 	public Set<Vertex> getVertices() {
 		return adjList.keySet();
 	}
 	
+	/**
+	 * Gets the adjacent.
+	 *
+	 * @param x the x
+	 * @return the adjacent
+	 */
 	public List<Vertex> getAdjacent(Vertex x) {
 		return adjList.get(x);
 	}
 	
+	/**
+	 * Adds the edge.
+	 *
+	 * @param e the e
+	 */
 	public void addEdge(Edge e) {
 		add(e.getSource(), e.getTarget()); // Generate the adjacency list
 		this.edges.put(Edge.generateId(e.getSource(), e.getTarget()), e);
 	}
 	
+	/**
+	 * Gets the edge weight.
+	 *
+	 * @param x the x
+	 * @param v the v
+	 * @return the edge weight
+	 */
 	public int getEdgeWeight(Vertex x, Vertex v) {
 		return edges.get(Edge.generateId(x,v)).getWeight();
 	}
@@ -100,7 +121,9 @@ public class Graph {
 	 * B: D
 	 * C: E D
 	 * D: 
-	 * E: B 
+	 * E: B.
+	 *
+	 * @return the string
 	 */
 	public String toString() {
 		final String tab = "   ";
@@ -131,11 +154,13 @@ public class Graph {
 	}
 
 
+	/** The Constant V. */
 	public static final Vertex[] V = {
 			//          0               1               2               3               4
 			new Vertex("A"),new Vertex("B"),new Vertex("C"),new Vertex("D"),new Vertex("E") 
 	};
 	
+	/** Sample edges. */
 	public static Edge[] E = {
 			new Edge(V[0], V[2], 10),
 			new Edge(V[2], V[3], 6),
@@ -144,6 +169,11 @@ public class Graph {
 			new Edge(V[1], V[3], 1)
 	};
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		
 		Graph graph = new Graph(V, E);

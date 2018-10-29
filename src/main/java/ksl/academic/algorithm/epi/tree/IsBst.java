@@ -2,6 +2,9 @@ package ksl.academic.algorithm.epi.tree;
 
 import java.util.Stack;
 
+import ksl.academic.structure.tree.Node;
+import ksl.academic.structure.tree.TreeUtil;
+
 public class IsBst {
 	
 	public static void main(String[] args) {
