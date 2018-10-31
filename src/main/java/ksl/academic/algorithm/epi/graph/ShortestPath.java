@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-import ksl.academic.structure.Edge;
-import ksl.academic.structure.Graph;
-import ksl.academic.structure.Vertex;
+import ksl.academic.structure.graph.Edge;
+import ksl.academic.structure.graph.Graph;
+import ksl.academic.structure.graph.Vertex;
 
 public class ShortestPath {
 
@@ -60,14 +60,15 @@ public class ShortestPath {
 		};
 				
 		
-		Graph graph = new Graph(v, edge);
+		Graph graph = Graph.createDirectedGraph();
+		for (Edge e : edge) graph.addEdge(e);
 		System.out.println(graph);
 		
 		List<Vertex> shortest = shortestPath(graph, v[0], v[8]);
 		for (Vertex s : shortest) {
 			System.out.println(s);
 		}
-		System.out.println("Cost " + shortest.get(shortest.size()-1).getWeight());
+		System.out.println("Cost " + shortest.get(shortest.size()-1).weight);
 //		System.out.println("Cost " + shortest.get(0).getWeight());
 	}
 	
@@ -75,7 +76,7 @@ public class ShortestPath {
 	static List<Vertex> shortestPath(Graph g, Vertex s, Vertex t) {
 		PriorityQueue<Vertex> minQ = new PriorityQueue<>();
 		Map<Vertex, Vertex> path = new HashMap<>();
-		s.setWeight(0);
+		s.weight = 0;
 		minQ.add(s);
 		
 		while (!minQ.isEmpty()) {
@@ -83,9 +84,9 @@ public class ShortestPath {
 			if (x.equals(t)) break;
 			
 			for(Vertex adj : g.getAdjacent(x)) {
-				int w = x.getWeight() + g.getEdgeWeight(x, adj);
-				if (w < adj.getWeight()) {
-					adj.setWeight(w);
+				int w = x.weight + g.getEdgeWeight(x, adj);
+				if (w < adj.weight) {
+					adj.weight = w;
 					minQ.add(adj);
 					path.put(adj, x);
 				}

@@ -1,11 +1,14 @@
-package ksl.academic.structure;
+package ksl.academic.structure.graph;
 
 import java.util.Objects;
 
+/**
+ * Data structure representing a graph vertex
+ */
 public final class Vertex implements Comparable<Vertex> {
 
-	private String name;
-	private int weight;
+	public String name;
+	public int weight;
 
 	public Vertex(String name) {
 		this(name, Integer.MAX_VALUE);
@@ -31,22 +34,6 @@ public final class Vertex implements Comparable<Vertex> {
 
 	public String toString() {
 		return name;
-	}
-	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getWeight() {
-		return weight;
-	}
-
-	public void setWeight(int weight) {
-		this.weight = weight;
 	}
 
 	@Override

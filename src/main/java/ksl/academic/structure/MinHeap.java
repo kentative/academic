@@ -2,6 +2,8 @@ package ksl.academic.structure;
 
 import java.util.PriorityQueue;
 
+import ksl.academic.structure.graph.Vertex;
+
 public class MinHeap {
 	
 	private int[] data;

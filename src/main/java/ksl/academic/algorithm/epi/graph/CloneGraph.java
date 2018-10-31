@@ -6,16 +6,16 @@ import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
-import ksl.academic.structure.Edge;
-import ksl.academic.structure.Graph;
-import ksl.academic.structure.Vertex;
+import ksl.academic.structure.graph.Edge;
+import ksl.academic.structure.graph.Graph;
+import ksl.academic.structure.graph.Vertex;
 
 public class CloneGraph {
 
 	static List<Vertex> visited = new ArrayList<>();
 	public static void main(String[] args) {
 
-		Vertex[] v = { 
+		Vertex[] vertices = { 
 				new Vertex("A"), // 0
 				new Vertex("B"), // 1
 				new Vertex("C"), // 2
@@ -23,14 +23,16 @@ public class CloneGraph {
 				new Vertex("E")  // 4
 		};
 
-		Edge[] edge = { 
-				new Edge(v[0], v[2], 10),  // AC 
-				new Edge(v[2], v[4], 3),   // CE
-				new Edge(v[2], v[3], 4),   // CD
-				new Edge(v[4], v[1], 1),   // EB
-				new Edge(v[1], v[3], 1) }; // BD
+		Edge[] edges = { 
+				new Edge(vertices[0], vertices[2], 10),  // AC 
+				new Edge(vertices[2], vertices[4], 3),   // CE
+				new Edge(vertices[2], vertices[3], 4),   // CD
+				new Edge(vertices[4], vertices[1], 1),   // EB
+				new Edge(vertices[1], vertices[3], 1) }; // BD
 
-		Graph graph = new Graph(v, edge);
+		Graph graph = Graph.createDirectedGraph();
+		graph.addEdge(edges); 
+		
 //		Graph clone = cloneGraphDFS(graph);
 //		
 //		System.out.println(graph);
@@ -54,7 +56,7 @@ public class CloneGraph {
 		
 		Objects.requireNonNull(graph, "Source graph cannot be null");
 
-		Graph clone = new Graph();
+		Graph clone = Graph.createDirectedGraph();
 		
 		PriorityQueue<Vertex> queue = new PriorityQueue<>();
 		Vertex s = graph.getVertices().iterator().next();
@@ -63,7 +65,7 @@ public class CloneGraph {
 			
 			Vertex x = queue.remove();
 			if (visited.contains(x)) break;
-			clone.add(new Vertex(x.getName(), x.getWeight()));
+			clone.add(new Vertex(x.name, x.weight));
 			visited.add(x);
 			
 			for (Vertex adj : graph.getAdjacent(x)) {
@@ -81,7 +83,7 @@ public class CloneGraph {
 		
 		visited = new ArrayList<>();
 		if (graph == null) return null;
-		Graph clone = new Graph();
+		Graph clone = Graph.createDirectedGraph();
 		for (Vertex v :graph.getVertices()) {
 			cloneDFS(graph, v, clone);
 		}
@@ -92,7 +94,7 @@ public class CloneGraph {
 		
 		if (visited.contains(v)) return;
 		
-		c.add(new Vertex(v.getName(), v.getWeight()));
+		c.add(new Vertex(v.name, v.weight));
 		visited.add(v);
 		
 		for (Vertex adj : g.getAdjacent(v)) {
@@ -104,7 +106,7 @@ public class CloneGraph {
 	
 	private static Graph cloneDFSItr(Graph graph) {
 		
-		Graph clone = new Graph();
+		Graph clone = Graph.createDirectedGraph();
 		
 		// Initialization
 		Stack<Vertex> stack = new Stack<>();		
@@ -115,7 +117,7 @@ public class CloneGraph {
 			Vertex x = stack.pop();
 			if (visited.contains(x)) continue;
 			
-			clone.add(new Vertex(x.getName(), x.getWeight()));
+			clone.add(new Vertex(x.name, x.weight));
 			visited.add(x);		
 			for (Vertex adj : graph.getAdjacent(x)) {
 				clone.addEdge(new Edge(x, adj, graph.getEdgeWeight(x, adj)));

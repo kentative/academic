@@ -1,12 +1,11 @@
 package ksl.academic.algorithm.set4;
 
-import java.util.Iterator;
-import java.util.LinkedList;
+import ksl.academic.structure.graph.Edge;
+import ksl.academic.structure.graph.Graph;
+import ksl.academic.structure.graph.Vertex;
 
 /**
  * The Class UndirectedGraphCycle.
- * from https://www.geeksforgeeks.org/detect-cycle-undirected-graph/
- * This code is contributed by Aakash Hasija
  */
 public class UndirectedGraphCycle {
 
@@ -17,121 +16,26 @@ public class UndirectedGraphCycle {
 	 */
 	// Driver method to test above methods
 	public static void main(String args[]) {
-		// Create a graph given in the above diagram
-		Graph g1 = new Graph(5);
-		g1.addEdge(1, 0);
-		g1.addEdge(0, 2);
-		g1.addEdge(2, 0);
-		g1.addEdge(0, 3);
-		g1.addEdge(3, 4);
-		if (g1.isCyclic())
-			System.out.println("Graph contains cycle");
-		else
-			System.out.println("Graph doesn't contains cycle");
-
-		Graph g2 = new Graph(3);
-		g2.addEdge(0, 1);
-		g2.addEdge(1, 2);
-		if (g2.isCyclic())
-			System.out.println("Graph contains cycle");
-		else
-			System.out.println("Graph doesn't contains cycle");
-	}
-
-	/**
-	 * The Class Graph.
-	 * This class represents a directed graph using adjacency list
-	 */
-	static class Graph {
 		
-		/** The v. */
-		private int V; // No. of vertices
+		Vertex[] vertices = {
+			new Vertex("A"),
+			new Vertex("B"),
+			new Vertex("C"),
+			new Vertex("D")				
+		};
 		
-		/** The adj. */
-		private LinkedList<Integer> adj[]; // Adjacency List Represntation
-
-		/**
-		 * Instantiates a new graph.
-		 *
-		 * @param v the v
-		 */
-		// Constructor
-		Graph(int v) {
-			V = v;
-			adj = new LinkedList[v];
-			for (int i = 0; i < v; ++i)
-				adj[i] = new LinkedList();
-		}
-
-		/**
-		 * Adds the edge.
-		 *
-		 * @param v the v
-		 * @param w the w
-		 */
-		// Function to add an edge into the graph
-		void addEdge(int v, int w) {
-			adj[v].add(w);
-			adj[w].add(v);
-		}
-
-		// A recursive function that uses visited[] and parent to detect
-		/**
-		 * Checks if is cyclic util.
-		 *
-		 * @param v the v
-		 * @param visited the visited
-		 * @param parent the parent
-		 * @return the boolean
-		 */
-		// cycle in subgraph reachable from vertex v.
-		Boolean isCyclicUtil(int v, Boolean visited[], int parent) {
-			// Mark the current node as visited
-			visited[v] = true;
-			Integer i;
-
-			// Recur for all the vertices adjacent to this vertex
-			Iterator<Integer> it = adj[v].iterator();
-			while (it.hasNext()) {
-				i = it.next();
-
-				// If an adjacent is not visited, then recur for that
-				// adjacent
-				if (!visited[i]) {
-					if (isCyclicUtil(i, visited, v))
-						return true;
-				}
-
-				// If an adjacent is visited and not parent of current
-				// vertex, then there is a cycle.
-				else if (i != parent)
-					return true;
-			}
-			return false;
-		}
-
-		/**
-		 * Checks if is cyclic.
-		 *
-		 * @return the boolean
-		 */
-		// Returns true if the graph contains a cycle, else false.
-		Boolean isCyclic() {
-			// Mark all the vertices as not visited and not part of
-			// recursion stack
-			Boolean visited[] = new Boolean[V];
-			for (int i = 0; i < V; i++)
-				visited[i] = false;
-
-			// Call the recursive helper function to detect cycle in
-			// different DFS trees
-			for (int u = 0; u < V; u++)
-				if (!visited[u]) // Don't recur for u if already visited
-					if (isCyclicUtil(u, visited, -1))
-						return true;
-
-			return false;
-		}
-
+		Edge[] edges = {
+				new Edge(vertices[0], vertices[1]),
+				new Edge(vertices[1], vertices[2]),
+				new Edge(vertices[2], vertices[3]),
+				new Edge(vertices[3], vertices[0]),
+				
+		};
+		
+		Graph graph = Graph.createUndirectedGraph();
+		graph.addEdge(edges);
+		
+		System.out.println(graph);
+		
 	}
 }
