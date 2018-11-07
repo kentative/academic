@@ -1,11 +1,10 @@
 package ksl.academic.structure.tree;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Node.
  */
-public class Node {
+public class Node<T> {
 	
 	/** The red. */
 	// Red = 1, Black = 0
@@ -18,24 +17,24 @@ public class Node {
 	public int upper;
 	
 	/** The value. */
-	public int value;
+	public T data;
 
 	/** The parent. */
-	public Node parent;
+	public Node<T> parent;
 	
 	/** The left. */
-	public Node left;
+	public Node<T> left;
 	
 	/** The right. */
-	public Node right;
+	public Node<T> right;
 
 	/**
 	 * Instantiates a new node.
 	 *
 	 * @param value the value
 	 */
-	public Node(int value) {
-		this.value = value;
+	public Node(T value) {
+		this.data = value;
 	}
 	
 	/**
@@ -44,8 +43,8 @@ public class Node {
 	 * @param value the value
 	 * @param isRed the is red
 	 */
-	public Node(int value, boolean isRed) {
-		this.value = value;
+	public Node(T value, boolean isRed) {
+		this.data = value;
 		this.red = isRed;
 	}
 
@@ -55,7 +54,7 @@ public class Node {
 	 * @param left the left
 	 * @param right the right
 	 */
-	public Node(Node left, Node right) {
+	public Node(Node<T> left, Node<T> right) {
 		this.left = left;
 		this.right = right;
 	}
@@ -65,7 +64,7 @@ public class Node {
 	 */
 	public String toString() {
 		char color = (red) ? 'R' : 'B';
-		return color + ":" + value;
+		return color + ":" + data;
 	}
 
 	/**
@@ -73,8 +72,8 @@ public class Node {
 	 *
 	 * @param x the x
 	 */
-	public void rotateLeft(Node x) {
-		Node y = x.right;
+	public void rotateLeft(Node<T> x) {
+		Node<T> y = x.right;
 		x.right = y.left;
 
 		y.left.parent = x;

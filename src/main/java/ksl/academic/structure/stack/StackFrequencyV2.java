@@ -1,4 +1,4 @@
-package ksl.academic.structure;
+package ksl.academic.structure.stack;
 
 import java.util.HashMap;
 

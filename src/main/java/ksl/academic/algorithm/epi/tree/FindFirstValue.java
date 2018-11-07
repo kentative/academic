@@ -10,7 +10,7 @@ public class FindFirstValue {
 	
 	public static void main(String[] args) {
 		
-		Node root = new Node(26);
+		Node<Integer> root = new Node<Integer>(26);
 		add(root, 17, 41);
 		add(root.left, 17, 21, true);
 		add(root.right, 30, 47);
@@ -29,14 +29,14 @@ public class FindFirstValue {
 		
 	}
 	
-	static Node findFirst(Node node, int k) {
-		Node first = null;
-		Node current = node;
+	static Node<Integer> findFirst(Node<Integer> node, int k) {
+		Node<Integer> first = null;
+		Node<Integer> current = node;
 		
 		while (current != null) {
-			if (k > current.value ) {
+			if (k > current.data ) {
 				current = current.right;
-			} else if ( k < current.value) {
+			} else if ( k < current.data) {
 				current = current.left;
 			} else {
 				first = current;
@@ -48,13 +48,13 @@ public class FindFirstValue {
 	}
 	
 	
-	private static void add(Node node, int left, int right) {
-		node.left = new Node(left);
-		node.right = new Node(right);
+	private static void add(Node<Integer> node, int left, int right) {
+		node.left = new Node<Integer>(left);
+		node.right = new Node<Integer>(right);
 	}
 	
-	private static void add(Node node, int left, int right, boolean isRed) {
-		node.left = new Node(left, isRed);
-		node.right = new Node(right, isRed);
+	private static void add(Node<Integer> node, int left, int right, boolean isRed) {
+		node.left = new Node<Integer>(left, isRed);
+		node.right = new Node<Integer>(right, isRed);
 	}
 }

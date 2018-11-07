@@ -9,7 +9,7 @@ public class IsBst {
 	
 	public static void main(String[] args) {
 		
-		Node root = new Node(26);
+		Node<Integer> root = new Node<>(26);
 		add(root, 17, 41);
 		add(root.left, 14, 21);
 		add(root.right, 30, 47);
@@ -20,9 +20,9 @@ public class IsBst {
 		System.out.println(isBinearySearchTree(root));
 	}
 	
-	static boolean isBinearySearchTree(Node node) {
+	static boolean isBinearySearchTree(Node<Integer> node) {
 		
-		Stack<Node> stack = new Stack<>();
+		Stack<Node<Integer>> stack = new Stack<>();
 		int previous = Integer.MIN_VALUE;
 		while (!stack.isEmpty() || node != null) {
 			
@@ -34,15 +34,15 @@ public class IsBst {
 			}
 			
 			node = stack.pop();
-			if (previous > node.value) return false;
-			previous = node.value;
+			if (previous > node.data) return false;
+			previous = node.data;
 			node = node.right;
 		}
 		
 		return true;
 	}
 	
-	static void inorder(Node n) {
+	static void inorder(Node<Integer> n) {
 		
 		if (n == null) return;
 		inorder(n.left);
@@ -50,9 +50,9 @@ public class IsBst {
 		inorder(n.right);
 	}
 	
-	private static void add(Node node, int left, int right) {
-		node.left = new Node(left);
-		node.right = new Node(right);
+	private static void add(Node<Integer> node, int left, int right) {
+		node.left = new Node<Integer>(left);
+		node.right = new Node<Integer>(right);
 	}
 	
 	

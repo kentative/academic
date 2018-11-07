@@ -17,10 +17,7 @@ public class Edge {
 	 * @param target the target
 	 */
 	public Edge(Vertex source, Vertex target) {
-		this.source = source;
-		this.target = target;
-		this.weight = 1;
-		this.id = generateId(source, target);
+		this(source, target, 1);
 	}
 	
 	/**

@@ -1,4 +1,4 @@
-package ksl.academic.structure;
+package ksl.academic.structure.skiplist;
 
 import java.util.Random;
 

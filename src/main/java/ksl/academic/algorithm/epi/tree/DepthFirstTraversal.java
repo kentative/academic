@@ -3,8 +3,8 @@ package ksl.academic.algorithm.epi.tree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ksl.academic.structure.Node;
-import ksl.academic.structure.Stack;
+import ksl.academic.structure.tree.Node;
+import ksl.academic.structure.stack.Stack;
 
 public class DepthFirstTraversal {
 
@@ -12,13 +12,13 @@ public class DepthFirstTraversal {
 	
 	public static void main(String[] args) {
 		Node<String> root = new Node<>("4");
-		Node<String> d1n1 = root.setLeft(new Node<>("2"));
-		d1n1.setLeft(new Node<>("1"));
-		d1n1.setRight(new Node<>("3"));
+		Node<String> d1n1 = root.left = new Node<>("2");
+		d1n1.left = new Node<>("1");
+		d1n1.right = new Node<>("3");
 		
-		Node<String> d1n2 = root.setRight(new Node<>("6"));
-		d1n2.setLeft(new Node<>("5"));
-		d1n2.setRight(new Node<>("7"));
+		Node<String> d1n2 = root.right = new Node<>("6");
+		d1n2.left = new Node<>("5");
+		d1n2.right = new Node<>("7");
 		
 		logger.info("----------------------------");
 		logger.info("RECURSIVE pre order: ");
@@ -45,8 +45,8 @@ public class DepthFirstTraversal {
 	private static void preOrder(Node<String> node) {
 		if (node == null) return; 
 		logger.info(node.data);
-		preOrder(node.getLeft());
-		preOrder(node.getRight());		
+		preOrder(node.left);
+		preOrder(node.right);		
 	}
 	
 	private static void preOrderItr(Node<String> node) {
@@ -65,9 +65,9 @@ public class DepthFirstTraversal {
 	
 	private static void inOrder(Node<String> node) {
 		if (node == null) return; 
-		inOrder(node.getLeft());
+		inOrder(node.left);
 		logger.info(node.data);
-		inOrder(node.getRight());		
+		inOrder(node.right);		
 	}
 	
 	private static void inOrderItr(Node<String> node) {
@@ -90,8 +90,8 @@ public class DepthFirstTraversal {
 	
 	private static void postOrder(Node<String> node) {
 		if (node == null) return; 
-		postOrder(node.getLeft());
-		postOrder(node.getRight());		
+		postOrder(node.left);
+		postOrder(node.right);		
 		logger.info(node.data);
 	}
 	

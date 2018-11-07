@@ -16,10 +16,6 @@ import org.junit.Test;
  * @author Kent
  * @see TaskScheduling for barebone Graph implementation without Guava
  */
-/**
- * @author Kent
- *
- */
 public class Graph {
 	
 	/** The is directed. */

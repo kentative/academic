@@ -1,4 +1,4 @@
-package ksl.academic.structure;
+package ksl.academic.structure.queue;
 
 import java.util.ArrayDeque;
 
