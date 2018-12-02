@@ -24,19 +24,22 @@ public class WordRotation {
 		System.out.println(isRotated2("HelloWorld!", "WorldHe!llo"));
 	}
 
+	/**
+	 * Brute force
+	 */
 	private static boolean isRotated(String s1, String s2) {
 		
-		char[] s1Buffer = s1.toCharArray();
-		char[] s2Buffer = s2.toCharArray();
+		char[] buf1 = s1.toCharArray();
+		char[] buf2 = s2.toCharArray();
 		
-		int length = s1Buffer.length;
-		if (s2Buffer.length != length) return false;
+		int length = buf1.length;
+		if (buf2.length != length) return false;
 		
 		for (int i = 0; i < length; i++) {
 			for (int j = 0; j < length; j++) {
-				if (s1Buffer[i] == s2Buffer[j]) {
+				if (buf1[i] == buf2[j]) {
 					int k = 0;
-					while (k < length && s1Buffer[k] == s2Buffer[(j+k)%length]) {
+					while (k < length && buf1[k] == buf2[(j+k)%length]) {
 						k++;
 					}
 					if (k == length) return true;					
@@ -46,6 +49,9 @@ public class WordRotation {
 		return false;
 	}
 	
+	/*
+	 * Clever! 
+	 */
 	private static boolean isRotated2(String s1, String s2) {
 		if (s1.length() != s2.length()) return false;
 
