@@ -41,7 +41,7 @@ public class TaskScheduling {
 		
 		List<Vertex> path = topological(g);
 		for (Vertex p : path) {
-			System.out.println(p.getId());
+			System.out.println(p.id);
 		}
 	}
 	
@@ -65,12 +65,12 @@ public class TaskScheduling {
 		
 		if (v.isCompleted) return true;
 		if (v.isVisited) return false;
-		v.setVisited(true);
+		v.isVisited = true;
 		
 		for (Vertex adj : g.getAdj(v)) {
 			visit(g, adj, result);
 		}
-		v.setCompleted(true);
+		v.isCompleted = true;
 		System.out.println("adding result after visiting all ancestors: " + v);
 		result.add(0, v);
 		return true;
@@ -102,10 +102,10 @@ public class TaskScheduling {
 
 		private void add(Edge e) {
 			Objects.requireNonNull(e, "Edges can't be null");
-			String edgeId = e.getId();
+			String edgeId = e.id;
 			if (edgeList.containsKey(edgeId)) return;
 			
-			add(e.getSource(), e.getTarget());
+			add(e.source, e.target);
 			edgeList.put(edgeId, e);
 		}
 
@@ -127,7 +127,7 @@ public class TaskScheduling {
 		
 		public int getWeight(Vertex s, Vertex t) {
 			String edgeId = Edge.genId(s, t);
-			return edgeList.get(edgeId).getWeight();
+			return edgeList.get(edgeId).weight;
 		}
 		
 		/**
@@ -147,10 +147,10 @@ public class TaskScheduling {
 			
 			sb.append("Adjacency List: \n");
 			for (Vertex v : vertices) {
-				sb.append(TAB + v.getId() + ": ");
+				sb.append(TAB + v.id + ": ");
 
 				for (Vertex adj : adjList.get(v)) {
-					sb.append(adj.getId() + " ");
+					sb.append(adj.id + " ");
 				}
 				sb.append("\n");
 			}
@@ -164,6 +164,7 @@ public class TaskScheduling {
 		}
 	}
 	
+	// Data class, don't need getter/setter
 	static class Vertex implements Comparable<Vertex>{
 		
 		String id;
@@ -176,17 +177,6 @@ public class TaskScheduling {
 			this.weight = Integer.MAX_VALUE;
 		}
 		
-		public String getId() { return id; }
-		public void setId(String id) {
-			this.id = id;
-		}
-		public int getWeight() {
-			return weight;
-		}
-		public void setWeight(int weight) {
-			this.weight = weight;
-		}
-		
 		public String toString() {
 			return id + ":" + weight;
 		}
@@ -194,35 +184,20 @@ public class TaskScheduling {
 		@Override
 		public int compareTo(Vertex o) {
 			if (o == null) return -1;
-			return weight - o.getWeight();
+			return weight - o.weight;
 		}
 		
 		public boolean equals(Object o) {
 			if (o == this) return true;
 			if (this.getClass() != o.getClass()) return false;
 			
-			return Objects.equals(id,  ((Vertex) o ).getId());
+			return Objects.equals(id,  ((Vertex) o ).id);
 		}
 		
 		public int hashCode() {
 			return Objects.hash(id);
-		}
-
-		public boolean isVisited() {
-			return isVisited;
-		}
-
-		public void setVisited(boolean isVisited) {
-			this.isVisited = isVisited;
-		}
-
-		public void setCompleted(boolean isCompleted) {
-			this.isCompleted = isCompleted;
-		}
-
-		public boolean isCompleted() {
-			return isCompleted;
-		}
+		}	
+	
 	}
 	
 	static class Edge {
@@ -247,29 +222,12 @@ public class TaskScheduling {
 		}
 
 		public static String genId(Vertex s, Vertex t) {
-			return s.getId() + t.getId();
+			return s.id + t.id;
 		}
 		
 		public String toString() {
 			return "|"+id+"|="+weight;
 		}
-		
-		public int getWeight() {
-			return weight;
-		}
-
-		public Vertex getSource() {
-			return source;
-		}
-
-		public Vertex getTarget() {
-			return target;
-		}
-
-		public String getId() {
-			return id;
-		}
-
 	}
 }
 
