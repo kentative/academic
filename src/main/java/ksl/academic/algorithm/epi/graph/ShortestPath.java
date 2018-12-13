@@ -68,6 +68,8 @@ public class ShortestPath {
 		for (Vertex s : shortest) {
 			System.out.println(s);
 		}
+		
+		
 		System.out.println("Cost " + shortest.get(shortest.size()-1).weight);
 //		System.out.println("Cost " + shortest.get(0).getWeight());
 	}

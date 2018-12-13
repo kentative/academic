@@ -1,6 +1,6 @@
 package ksl.academic.algorithm.set2;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class FloodFill3 {
@@ -59,9 +59,10 @@ public class FloodFill3 {
 			this.r = r; this.c = c;
 		}
 	}
+	
 	private static boolean[][] fill3(boolean[][] grid, int r, int c, boolean color) {
 		
-		List<Coord> queue = new ArrayList<>();
+		List<Coord> queue = new LinkedList<>();
 		queue.add(new Coord(r, c));
 		
 		while (!queue.isEmpty()) {
