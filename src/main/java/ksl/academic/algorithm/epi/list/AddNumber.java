@@ -97,35 +97,18 @@ public class AddNumber {
 		public String toString() {
 			return String.valueOf(this.data);
 		}
-
-		public int getData() {
-			return data;
-		}
-
-		public void setData(int data) {
-			this.data = data;
-		}
-
-		public Node getNext() {
-			return next;
-		}
-
-		public void setNext(Node next) {
-			this.next = next;
-		}
-
 	}
 
 	private static Node buildNode(int... data) {
 
 		Node head = new Node();
-		head.setData(data[0]);
+		head.data = data[0];
 
 		Node list = head;
 		for (int i = 1; i < data.length; i++) {
 			Node next = new Node();
-			next.setData(data[i]);
-			list.setNext(next);
+			next.data = data[i];
+			list.next = next;
 			list = next;
 
 		}
@@ -138,8 +121,8 @@ public class AddNumber {
 		Node x = n;
 		int i = 0;
 		while (x != null) {
-			sb.append(x.getData()).append(" ");
-			x = x.getNext();
+			sb.append(x.data).append(" ");
+			x = x.next;
 			if (++i >= max) break;
 		}
 		return sb.toString();

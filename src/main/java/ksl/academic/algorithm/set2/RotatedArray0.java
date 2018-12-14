@@ -1,6 +1,12 @@
 package ksl.academic.algorithm.set2;
 
-public class Set2RotatedArray {
+/**
+ * First attempt solution. 
+ * Performs binary search on left and right half of offset.
+ * 
+ * @author Kent
+ */
+public class RotatedArray0 {
 
 	public enum Row { A, B, C, D, E }
 	public enum Direction { Left, Top, Right, Bottom }
@@ -18,16 +24,19 @@ public class Set2RotatedArray {
 		dataSet[4] = new int[] {5, 6, 1, 2, 3, 4};
 		dataSet[5] = new int[] {6, 1, 2, 3, 4, 5};
 
-		
+		// Using dataset 1, search for 5, expects 3 (index)
 		int[] data = dataSet[1]; 
 		int offset = findOffset(data);
 		int result = -1;
 		int start = 0; 
 		int end = data.length;
-		int x = 3;
+		
+		int x = 5;  
 		if (offset < 0) {
+			// Search left of offset
 			result = binarySearch(data, start, end, x);
 		} else {
+			// Search right of offset
 			result = binarySearch(data, start, offset, x);
 			if (result == -1) {
 				result = binarySearch(data, offset, end, x);
@@ -65,9 +74,8 @@ public class Set2RotatedArray {
 	}
 	
 	/**
-	 * O(n), 
+	 * Naive solution to find offset. O(n). 
 	 * optimal - believe to be O(log n)
-	 *  
 	 */
 	@SuppressWarnings("unused")
 	private static int findOffsetSimple(int[] data) {

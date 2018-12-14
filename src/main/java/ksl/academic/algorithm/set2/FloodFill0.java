@@ -1,6 +1,12 @@
 package ksl.academic.algorithm.set2;
 
-public class Set2FloodFill {
+/**
+ * First attempt
+ * 
+ * @author Kent
+ *
+ */
+public class FloodFill0 {
 
 	public enum Row { A, B, C, D, E }
 	public enum Direction { Left, Top, Right, Bottom }

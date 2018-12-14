@@ -1,12 +1,18 @@
 package ksl.academic.algorithm.set2;
 
-public class Set2RotatedArray2 {
+/**
+ * A much more elegant solution. O(log n)
+ * 
+ * Performs binary search with rotated mid!
+ * 
+ * @author Kent
+ *
+ */
+public class RotatedArray {
 
 	public enum Row { A, B, C, D, E }
 	public enum Direction { Left, Top, Right, Bottom }
 
-	
-	
 	public static void main(String[] args) {
 		
 		int[][] dataSet = new int[6][6];
@@ -19,11 +25,16 @@ public class Set2RotatedArray2 {
 		dataSet[5] = new int[] {6, 1, 2, 3, 4, 5};
 
 		System.out.println(search(dataSet[2], 6, 6));
-
-//		System.out.println(calcAngle(3, 30));
-		
 	}
 	
+	/**
+	 * Perform binary search on a sorted, but rotated array.
+	 * 
+	 * @param data the sorted but rotated list of numbers
+	 * @param n - the size of the list, not really needed
+	 * @param x - the number to search for
+	 * @return - the index containing x, -1 if not found.
+	 */
 	public static int search(int data[], int n, int x) {
         
 		int lo = 0, hi = n-1;
@@ -54,41 +65,4 @@ public class Set2RotatedArray2 {
         }
         return -1;
     }
-	
-	
-	public static int binarySearch(int[] data, int n, int x) {
-		int lo = 0, hi = n-1;
-		
-		while (lo <= hi) {
-			int mid = (lo + hi)/2;
-			if (x == data[mid]) 	return mid;
-			else if (x < data[mid]) hi = mid-1;
-			else lo = mid+1;
-		}
-		
-		return -1;
-	}
-	
-	public static int bsearch(int[] data, int lo, int hi, int x) {
-
-		if (data.length < 1) return -1;
-		while (lo <= hi) {
-			int m = (lo + hi)/2;
-			if (x < data[m]) hi = m-1;
-			else if (x > data[m]) lo = m+1;
-			else return m;
-		}
-		
-		return -1;
-	}
-	
-	public static double calcAngle(int h, int m) {
-		double hAngle = (h%12)/12.0 * 360 + (0.5*(m%60));
-		double mAngle = (m%60)/60.0 * 360;
-		
-		System.out.println(hAngle);
-		System.out.println(mAngle);
-		System.out.println((-2+5)%5);
-		return ((hAngle - mAngle) +360)% 360;
-	}
 }

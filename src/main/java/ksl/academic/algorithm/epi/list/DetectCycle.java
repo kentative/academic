@@ -5,11 +5,12 @@ public class DetectCycle {
 	public static void main(String[] args) {
 		
 		Node n = buildNode(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		
 		n.next.next.next
 			.next.next.next
 				.next.next.next = n.next.next.next
-						.next.next.next
-						;
+						.next.next.next;
+		
 		System.out.println(hasCycle(n));
 		System.out.println(getCycle(n));
 		System.out.println(print(n, 20));
@@ -23,7 +24,6 @@ public class DetectCycle {
 		
 		while (fast != null && fast.next != null) {
 			slow = slow.next;
-			if (fast.next == null) return false;
 			fast = fast.next.next;
 			
 			if (slow == fast) return true;
@@ -31,10 +31,16 @@ public class DetectCycle {
 		return false;
 	}
 	
+	/**
+	 * Get the first node of the cycle.
+	 * @param n - the root node
+	 * @return the first node of the cycle, if cycle exists, null otherwise
+	 */
 	static Node getCycle(Node n) {
 		
 		if (n == null) return null;
 		
+		// Detect cycle
 		Node s = n, f = n;
 		boolean hasCycle = false;
 		while (f != null && f.next != null) {
@@ -49,8 +55,11 @@ public class DetectCycle {
 
 		if (!hasCycle) return null;
 		
+		// Cycle exists, find the node where the cycle begins
 		System.out.println("first slow :" + print(s, 1));
 		
+		// Reset the slow pointer to the begining of the list.
+		// The next time slow and fast meets, that's the start of the cycle.
 		s = n;
 		while (s != f) {
 			
@@ -66,13 +75,13 @@ public class DetectCycle {
 	private static Node buildNode(int...data) {
 		
 		Node head = new Node();
-		head.setData(data[0]);
+		head.data = data[0];
 		
 		Node list = head;
 		for (int i = 1; i < data.length; i++) {
 			Node next = new Node();
-			next.setData(data[i]);
-			list.setNext(next);
+			next.data= data[i];
+			list.next = next;
 			list = next;
 			
 		}
@@ -85,8 +94,8 @@ public class DetectCycle {
 		Node x = n;
 		int i = 0;
 		while (x != null) {
-			sb.append(x.getData()).append(" ");
-			x = x.getNext();
+			sb.append(x.data).append(" ");
+			x = x.next;
 			if (++i >= max) break;
 		}
 		return sb.toString();
@@ -100,23 +109,6 @@ public class DetectCycle {
 		public String toString() {
 			return String.valueOf(this.data);
 		}
-
-		public int getData() {
-			return data;
-		}
-
-		public void setData(int data) {
-			this.data = data;
-		}
-
-		public Node getNext() {
-			return next;
-		}
-
-		public void setNext(Node next) {
-			this.next = next;
-		}
-		
 	}
 
 }

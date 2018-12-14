@@ -44,7 +44,6 @@ public class CountTreeNodes {
 	 * 		 = O(h + h) = O(h) 
 	 * 
 	 * @param node the node
-	 * @return the int
 	 */
 	public static int count(Node<Integer> node) {
 		

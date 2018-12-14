@@ -13,6 +13,14 @@ public class Bsearch {
 		return bsearch(data, 0, data.length-1, x);
 	}
 	
+	/**
+	 * 
+	 * @param data
+	 * @param lo inclusive
+	 * @param hi inclusive
+	 * @param x
+	 * @return
+	 */
 	static int bsearch(int[] data, int lo, int hi, int x) {
 		
 		while (lo <= hi) {

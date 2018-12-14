@@ -3,7 +3,7 @@ package ksl.academic.algorithm.set1;
 import java.util.Arrays;
 import java.util.HashSet;
 
-public class Set1ArraySum {
+public class ArraySum {
 	
 	public static void main (String[] args) {
 

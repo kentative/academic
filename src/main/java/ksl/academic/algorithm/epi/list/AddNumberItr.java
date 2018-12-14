@@ -37,7 +37,7 @@ public class AddNumberItr {
 		while (!stack.isEmpty()) {
 			Node n1 = stack.pop();  // Bi
 			Node n2 = stack.pop();  // Ai
-			int x = n1.getData() + n2.getData() + carry;
+			int x = n1.data + n2.data + carry;
 			carry = x/10;
 			sum = addHead(sum, x%10);
 		}
@@ -84,34 +84,18 @@ public class AddNumberItr {
 			return String.valueOf(this.data);
 		}
 
-		public int getData() {
-			return data;
-		}
-
-		public void setData(int data) {
-			this.data = data;
-		}
-
-		public Node getNext() {
-			return next;
-		}
-
-		public void setNext(Node next) {
-			this.next = next;
-		}
-
 	}
 
 	private static Node buildNode(int... data) {
 
 		Node head = new Node();
-		head.setData(data[0]);
+		head.data = data[0];
 
 		Node list = head;
 		for (int i = 1; i < data.length; i++) {
 			Node next = new Node();
-			next.setData(data[i]);
-			list.setNext(next);
+			next.data = data[i];
+			list.next = next;
 			list = next;
 
 		}
@@ -124,8 +108,8 @@ public class AddNumberItr {
 		Node x = n;
 		int i = 0;
 		while (x != null) {
-			sb.append(x.getData()).append(" ");
-			x = x.getNext();
+			sb.append(x.data).append(" ");
+			x = x.next;
 			if (++i >= max) break;
 		}
 		return sb.toString();
