@@ -22,6 +22,13 @@ public class WordRotation {
 		System.out.println(isRotated2("abc", "cab"));
 		System.out.println(isRotated2("aabca", "caaab"));
 		System.out.println(isRotated2("HelloWorld!", "WorldHe!llo"));
+		
+		System.out.println();
+		System.out.println(isRotated3("abc", "cab"));
+		System.out.println(isRotated3("abc", "acb"));
+		System.out.println(isRotated3("aabca", "caaab"));
+		System.out.println(isRotated3("HelloWorld!", "WorldHe!llo"));
+		
 	}
 
 	/**
@@ -49,8 +56,31 @@ public class WordRotation {
 		return false;
 	}
 	
+	private static boolean isRotated3(String s1, String s2) {
+		
+		if (s1 == null || s2 == null) return false;
+		
+		int n = s1.length();
+		if (s2.length() != n) return false;
+		
+		char[] buf1 = s1.toCharArray();
+		char[] buf2 = s2.toCharArray();
+		
+		int k = 0;
+		for (int i = 0; i < n; i++) {
+			if (buf1[i] == buf2[k]) {
+				while (k < n && buf1[i%n] == buf2[k]) {
+					i++; k++;
+				}
+				return (k==n);
+			}
+		}
+		
+		return false;
+	}
+	
 	/*
-	 * Clever! 
+	 * clever 
 	 */
 	private static boolean isRotated2(String s1, String s2) {
 		if (s1.length() != s2.length()) return false;

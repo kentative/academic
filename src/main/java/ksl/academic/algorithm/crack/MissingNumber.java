@@ -5,20 +5,25 @@ import com.google.common.base.Preconditions;
 public class MissingNumber {
 	public static void main(String[] args) {
 
-		int[] data = {0, 1, 2, 3, 4, 6, 7, 8, 9};
-		
-		System.out.println(findMissingNumber(data));
+		int[] data = {1, 2, 3, 4, 6, 7, 8, 9, 10}; // missing 5
+		System.out.println(findMissingTriangleSeries(data));
 	}
 	
-	static int findMissingNumber(int[] data) {
-		Preconditions.checkNotNull(data);
+	
+	/**
+	 * Find the missing number in a triangular series
+	 * @param numbers - the list of integers starting from 1, 
+	 * @return
+	 */
+	static int findMissingTriangleSeries(int[] numbers) {
 		
-		int n = data.length;
-		for (int i = 0; i < n; i++) {
-			if ((i ^ data[i]) != 0) {
-				return i;
-			}
-		}
-		return -1;
+		Preconditions.checkNotNull(numbers);
+		
+		int sum = 0;
+		int n = numbers.length;
+		for (int i = 0; i < n; i++) sum+=numbers[i];
+		
+		int m = n+1;
+		return (m*(m +1))/2 - sum;
 	}
 }

@@ -48,12 +48,12 @@ public class UndirectedGraphCycleSample {
 		private int V; // No. of vertices
 		
 		/** The adj. */
-		private LinkedList<Integer> adj[]; // Adjacency List Represntation
+		private LinkedList<Integer>[] adj; // Adjacency List Representation
 
 		/**
 		 * Instantiates a new graph.
 		 *
-		 * @param v the v
+		 * @param v the number of vertices
 		 */
 		// Constructor
 		Graph(int v) {
@@ -75,14 +75,15 @@ public class UndirectedGraphCycleSample {
 			adj[w].add(v);
 		}
 
-		// A recursive function that uses visited[] and parent to detect
 		/**
 		 * Checks if is cyclic util.
-		 *
-		 * @param v the v
-		 * @param visited the visited
-		 * @param parent the parent
-		 * @return the boolean
+		 * A recursive function that uses visited[] and parent to detect cycle. 
+		 * If the next node to be visited is not a parent, and is already visited, it's a cycle.
+		 * 
+		 * @param v the current node to examine
+		 * @param visited the visited cache
+		 * @param parent the parent of v
+		 * @return true if there is a cycle, false otherwise
 		 */
 		// cycle in subgraph reachable from vertex v.
 		Boolean isCyclicUtil(int v, Boolean visited[], int parent) {

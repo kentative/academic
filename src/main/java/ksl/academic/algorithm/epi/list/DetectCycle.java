@@ -58,8 +58,9 @@ public class DetectCycle {
 		// Cycle exists, find the node where the cycle begins
 		System.out.println("first slow :" + print(s, 1));
 		
-		// Reset the slow pointer to the begining of the list.
-		// The next time slow and fast meets, that's the start of the cycle.
+		// Reset the slow pointer to the beginning of the list.
+		// Advance slow and fast pointers at the same pace.
+		// The next node slow and fast meets, that node is the start of the cycle.
 		s = n;
 		while (s != f) {
 			
