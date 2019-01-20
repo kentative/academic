@@ -1,6 +1,7 @@
 package ksl.academic.algorithm.amzn;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,6 +59,8 @@ public class ShortestPath {
 		int[] source = {0, 0};
 		int[] target = null;
 		
+		int length = 0;
+		
 		List<int[]> queue = new LinkedList<>();
 		queue.add(source);
 		while (!queue.isEmpty()) {
@@ -77,6 +80,7 @@ public class ShortestPath {
 					distance[adj[0]][adj[1]] = d;
 					path.put(adj, x);
 					queue.add(adj);
+					length++;
 				}
 			}
 			visited[r][c] = true;
@@ -87,7 +91,10 @@ public class ShortestPath {
 		List<int[]> result = new LinkedList<>();
 		for (int[] x = target; x != null; x = path.get(x)) {
 			result.add(0, x);
+			System.out.println(Arrays.toString(x));
 		}
+		
+		System.out.println("Length: " + length);
 		return result.size();
 	}
 		
