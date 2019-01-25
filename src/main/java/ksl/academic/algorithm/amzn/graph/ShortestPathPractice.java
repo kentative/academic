@@ -1,4 +1,4 @@
-package ksl.academic.algorithm.amzn;
+package ksl.academic.algorithm.amzn.graph;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
