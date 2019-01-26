@@ -6,7 +6,6 @@ public class Sandbox {
 		
 		System.out.println("hello");
 	
-		stack 
 		
 	}
 	

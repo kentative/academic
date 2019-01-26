@@ -15,7 +15,6 @@ import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import com.google.common.base.Preconditions;
 import com.google.common.graph.MutableValueGraph;
 import com.google.common.graph.ValueGraph;
 import com.google.common.graph.ValueGraphBuilder;
@@ -40,7 +39,7 @@ public class FindSequenceGuava {
 		Iterator<String> iterator = d.iterator();
 		while (iterator.hasNext()) {
 			Node n = new Node(iterator.next());
-			nodeMap.put(n.getName(), n);
+			nodeMap.put(n.name, n);
 		}
 		
 		System.out.println(
@@ -62,7 +61,9 @@ public class FindSequenceGuava {
 		
 		MutableValueGraph<Node, Integer> graph = ValueGraphBuilder.directed().allowsSelfLoops(true).build();
 		
-		// Enumerate all possible values
+		// Build the graph based on the dictionary
+		// Each word is a node, an edge exists between two node 
+		// if their Hamming distance is 1
 		Iterator<String> iter1 = nodeMap.keySet().iterator();
 		while (iter1.hasNext()) {
 			String word1 = iter1.next();
@@ -70,7 +71,7 @@ public class FindSequenceGuava {
 			while (iter2.hasNext()) {
 				String word2 = iter2.next();
 				if (hammingDistance(word1, word2) == 1) {
-					graph.putEdgeValue(nodeMap.get(word1), nodeMap.get(word2), 1);					
+					graph.putEdgeValue(nodeMap.get(word1),  nodeMap.get(word2), 1);					
 				}
 			}
 		}
@@ -96,15 +97,15 @@ public class FindSequenceGuava {
 		
 		int size = g.nodes().size();
 		Map<Node, Node> path = new HashMap<>();
-		PriorityQueue<Node> minQ = new PriorityQueue<>(size, new NodeComparator());
+		PriorityQueue<Node> minQ = new PriorityQueue<>(size, Comparator.comparing(Node::getValue));
 		
-		s.setValue(0);
+		s.value = 0;
 		minQ.add(s);
 
 		while (!minQ.isEmpty()) {
 			
 			Node x = minQ.remove();
-			if (x.isVisited()) continue;
+			if (x.isVisited) continue;
 			if (x.equals(t))   break;
 			
 			for (Node adj : g.adjacentNodes(x)) {
@@ -114,20 +115,20 @@ public class FindSequenceGuava {
 				if (edgeCost == null) 
 					throw new IllegalArgumentException("Must have an edge weight");
 				
-				int cost = x.getValue() + edgeCost;
-				if (cost < adj.getValue()) {
-					adj.setValue(cost);
+				int cost = x.value + edgeCost;
+				if (cost < adj.value) {
+					adj.value = cost;
 					path.put(adj, x);
 					minQ.add(adj);
 				}
 			}
-			x.setVisited(true);
+			x.isVisited = true;
 		}
 
 		// Path not found
 		if (!path.containsKey(t)) return null;
 		
-		// Note LinkedList instead of ArrayList to add in reverse order
+		// Note LinkedList instead of ArrayList to efficiently add in reverse order
 		List<Node> result = new LinkedList<>();
 		for (Node x = t; x != null; x = path.get(x)) {
 			result.add(0, x);
@@ -135,19 +136,11 @@ public class FindSequenceGuava {
 		return result;
 	}
 	
-	static class NodeComparator implements Comparator<Node> {
-		public int compare(Node n1, Node n2) {
-			Preconditions.checkNotNull(n1);
-			Preconditions.checkNotNull(n2);
-			return n1.getValue() - n2.getValue();
-		}
-	}
-	
 	static class Node {
 		
-		private String name;
-		private int value;
-		private boolean isVisited;
+		String name;
+		int value;
+		boolean isVisited;
 		
 		Node (String name) {
 			this.name = name;
@@ -169,29 +162,9 @@ public class FindSequenceGuava {
 		public int hashCode() {
 			return Objects.hash(name);
 		}
-		
-		public String getName() {
-			return name;
-		}
-		
-		public void setName(String name) {
-			this.name = name;
-		}
-		
+
 		public int getValue() {
 			return value;
-		}
-		
-		public void setValue(int value) {
-			this.value = value;
-		}
-
-		public boolean isVisited() {
-			return isVisited;
-		}
-
-		public void setVisited(boolean isVisited) {
-			this.isVisited = isVisited;
 		}
 	}
 }

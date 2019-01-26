@@ -1,7 +1,5 @@
 package ksl.academic.algorithm.sim;
 
-import ksl.academic.algorithm.sim.DuffleBag.CakeType;
-
 class Knapsack {
 
 	public static void main(String[] args) throws Exception {

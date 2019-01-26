@@ -1,7 +1,5 @@
 package ksl.academic.algorithm.sim;
 
-import java.util.Arrays;
-
 /**
  * https://www.interviewcake.com/question/java/cake-thief
  * 
@@ -71,7 +69,7 @@ public class DuffleBag {
 			}
 		}
 		
-		return cache[cakes.length][capacity];
+		return cache[itemCount][capacity];
 	}
 
 	public static class CakeType {

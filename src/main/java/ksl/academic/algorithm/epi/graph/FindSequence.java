@@ -37,7 +37,7 @@ public class FindSequence {
 		
 		List<Vertex> path = findSequence(g, s, t);
 		for (Vertex p : path) {
-			System.out.println(p.getId());
+			System.out.println(p.id);
 		}
 
 	}
@@ -47,7 +47,7 @@ public class FindSequence {
 		Map<Vertex, Vertex> path = new HashMap<>();
 		PriorityQueue<Vertex> minQ = new PriorityQueue<>();
 		minQ.add(s);
-		s.setWeight(0);
+		s.weight = 0;
 		
 		while (!minQ.isEmpty()) {
 			Vertex x = minQ.remove();
@@ -55,9 +55,9 @@ public class FindSequence {
 			
 			for (Vertex adj : g.getAdj(x)) {
 				
-				int w = x.getWeight() + g.getWeight(x, adj);
-				if (w < adj.getWeight()) {
-					adj.setWeight(w);
+				int w = x.weight + g.getWeight(x, adj);
+				if (w < adj.weight) {
+					adj.weight = w;
 					path.put(adj, x);
 					minQ.add(adj);
 				}
@@ -94,7 +94,9 @@ public class FindSequence {
 			this.adjList = new HashMap<>();
 			this.edgeList = new HashMap<>();
 			
-			// Enumerate all possible values
+			// Build the graph based on the dictionary
+			// Each word is a node
+			// an edge exists between two node if their hamming distance is 1
 			Iterator<String> iterator = dictionary.iterator();
 			while (iterator.hasNext()) {
 				
@@ -104,7 +106,7 @@ public class FindSequence {
 					for (int j = 0; j < 26; j++) {
 						buffer[i] = (char) ('a' + j);
 						
-						// include only matching entries in D
+						// include only matching entries in Dictionary
 						if (dictionary.contains(String.valueOf(buffer))) {
 							Vertex s = add(getVertex(word));
 							Vertex t = add(getVertex(String.valueOf(buffer)));
@@ -121,7 +123,7 @@ public class FindSequence {
 
 		private Vertex getVertex(String word) {
 			for (Vertex x : adjList.keySet()) {
-				if (x.getId().equals(word)) {
+				if (x.id.equals(word)) {
 					return x;
 				}
 			}
@@ -134,10 +136,10 @@ public class FindSequence {
 
 		private void add(Edge e) {
 			Objects.requireNonNull(e, "Edges can't be null");
-			String edgeId = e.getId();
+			String edgeId = e.id;
 			if (edgeList.containsKey(edgeId)) return;
 			
-			add(e.getSource(), e.getTarget());
+			add(e.source, e.target);
 			edgeList.put(edgeId, e);
 		}
 
@@ -159,7 +161,7 @@ public class FindSequence {
 		
 		public int getWeight(Vertex s, Vertex t) {
 			String edgeId = Edge.genId(s, t);
-			return edgeList.get(edgeId).getWeight();
+			return edgeList.get(edgeId).weight;
 		}
 		
 		/**
@@ -179,10 +181,10 @@ public class FindSequence {
 			
 			sb.append("Adjacency List: \n");
 			for (Vertex v : vertices) {
-				sb.append(TAB + v.getId() + ": ");
+				sb.append(TAB + v.id + ": ");
 
 				for (Vertex adj : adjList.get(v)) {
-					sb.append(adj.getId() + " ");
+					sb.append(adj.id + " ");
 				}
 				sb.append("\n");
 			}
@@ -206,17 +208,6 @@ public class FindSequence {
 			this.weight = Integer.MAX_VALUE;
 		}
 		
-		public String getId() { return id; }
-		public void setId(String id) {
-			this.id = id;
-		}
-		public int getWeight() {
-			return weight;
-		}
-		public void setWeight(int weight) {
-			this.weight = weight;
-		}
-		
 		public String toString() {
 			return id + ":" + weight;
 		}
@@ -224,7 +215,7 @@ public class FindSequence {
 		@Override
 		public int compareTo(Vertex o) {
 			if (o == null) return -1;
-			return weight - o.getWeight();
+			return weight - o.weight;
 		}
 		
 		public boolean equals(Object o) {
@@ -232,7 +223,7 @@ public class FindSequence {
 			if (o == null) return false;
 			if (this.getClass() != o.getClass()) return false;
 			
-			return Objects.equals(id,  ((Vertex) o ).getId());
+			return Objects.equals(id,  ((Vertex) o ).id);
 		}
 		
 		public int hashCode() {
@@ -254,29 +245,13 @@ public class FindSequence {
 		}
 
 		public static String genId(Vertex s, Vertex t) {
-			return s.getId() + t.getId();
+			return s.id + t.id;
 		}
 		
 		public String toString() {
 			return "|"+id+"|="+weight;
 		}
 		
-		public int getWeight() {
-			return weight;
-		}
-
-		public Vertex getSource() {
-			return source;
-		}
-
-		public Vertex getTarget() {
-			return target;
-		}
-
-		public String getId() {
-			return id;
-		}
-
 	}
 }
 
