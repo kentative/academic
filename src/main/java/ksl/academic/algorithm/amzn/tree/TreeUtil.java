@@ -2,6 +2,10 @@ package ksl.academic.algorithm.amzn.tree;
 
 public class TreeUtil {
 
+	public static void print(Node node) {
+		System.out.println(HorizontalTreePrinter.prettyPrint(node));
+	}
+	
 	/**
 	 * Left, middle, right
 	 * @param root

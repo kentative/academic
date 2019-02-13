@@ -70,7 +70,7 @@ public class Sudoku {
 	}  
 	
 	static boolean hasDuplicate(boolean[] cache, int x) {
-		if (x ==0) return false;
+		if (x == 0) return false;
 		if (!cache[x]) {
 			cache[x] = true;
 			return false;

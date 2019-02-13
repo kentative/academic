@@ -37,9 +37,7 @@ public class TreeTraversal {
 		
 		postOrder(root);
 		System.out.println();
-		postOrderItr(root);
-	
-		inorderItr2(root);
+
 	}
 
 	static void inOrder(Node n) {
@@ -125,8 +123,6 @@ public class TreeTraversal {
 			}
 		}
 	}
-		
-
 	
 	static void levelOrder(Node n) {
 

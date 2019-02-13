@@ -20,7 +20,32 @@ public class Node {
 		return right;
 	}
 	
-	public String toString() {
-		return String.valueOf(data);
+	public StringBuilder print(StringBuilder prefix, boolean isTail, StringBuilder sb) {
+	    
+		if(right!=null) {
+	        right.print(
+	        		new StringBuilder(prefix)
+	        		.append(isTail ? "│   " : "    "), false, sb);
+	    }
+
+		String connector = isTail? "└── " : "┌── ";
+	    sb.append(prefix).append(connector + data + "\n");
+	    
+	    if(left!=null) {
+	        left.print(
+	        		new StringBuilder(prefix)
+	        		.append(isTail ? "    " : "│   "), true, sb);
+	    }
+	    
+	    return sb;
 	}
+
+	@Override
+	public String toString() {
+	    return this.print(
+	    		new StringBuilder(), 
+	    		true, 
+	    		new StringBuilder()).toString();
+	}
+	
 }

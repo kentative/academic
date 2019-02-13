@@ -59,6 +59,40 @@ public class Knapsack {
 		return max[capacity];
 	}
 	
+	
+	/**
+	 * for each capacity value
+	 * 		for each item 
+	 * 			 if (item weight <= current capacity) 
+	 * 				max = skip item, take item
+	 * 			 else
+	 * 				max = max of previous item 
+	 * 
+	 * @param cakes
+	 * @param capacity
+	 * @return
+	 */
+	public int maxValueLimitedItem(CakeType[] cakes, int capacity) {
+		
+		int itemCount = cakes.length;
+		int[][] max = new int[itemCount+1][capacity+1];
+		
+		for (int c = 1; c <= capacity; c++) {
+			for (int i = 1; i <= itemCount; i++) {
+				CakeType cake = cakes[i-1];
+				if (cake.weight <= c) {
+					max[i][c] = Math.max(
+							max[i-1][c], 
+							max[i-1][c-cake.weight] + cake.value);
+				} else {
+					max[i][c] = max[i-1][c];
+				}
+			}
+		}
+		return max[itemCount][capacity];
+	}
+	
+	
 	private static int limitedItem(CakeType[] cakes, int capacity) {
 		
 		int itemCount = cakes.length;

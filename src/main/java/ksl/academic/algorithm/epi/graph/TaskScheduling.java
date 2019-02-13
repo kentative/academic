@@ -14,26 +14,23 @@ public class TaskScheduling {
 	public static void main(String[] args) {
 		
 		Vertex[] v = {
-			new Vertex("5"),  // 2 7
-			new Vertex("7"),  // 3 4 7
+			new Vertex("0"),  // 2 7
+			new Vertex("1"),  // 2 7
+			new Vertex("2"),  // 3 4 7
 			new Vertex("3"),  // 1 4 6
-			new Vertex("2"),  // 0
-			new Vertex("8"),  // 4 5
-			new Vertex("9"),  // 5
-			new Vertex("10"), // 6
-			new Vertex("11")  // 7 0 5 6
+			new Vertex("4"),  // 0
+			new Vertex("5")  // 4 5
 		};
 		
 		Edge[] e = {
-			new Edge(v[1], v[4]),
-			new Edge(v[1], v[6]),
-			new Edge(v[2], v[7]),
-			new Edge(v[3], v[4]),
-			new Edge(v[3], v[7]),
-			new Edge(v[4], v[5]),
-			new Edge(v[7], v[0]),
-			new Edge(v[7], v[5]),
-			new Edge(v[7], v[6])
+			new Edge(v[5], v[2]),
+			new Edge(v[5], v[0]),
+			new Edge(v[4], v[0]),
+			new Edge(v[4], v[1]),
+			new Edge(v[2], v[3]),
+			new Edge(v[3], v[1]),
+			new Edge(v[5], v[4])
+			
 		}; 
 		
 		Graph g = new Graph(v, e);
@@ -41,7 +38,7 @@ public class TaskScheduling {
 		
 		List<Vertex> path = topological(g);
 		for (Vertex p : path) {
-			System.out.println(p.id);
+			System.out.print(p.id + " ");
 		}
 	}
 	

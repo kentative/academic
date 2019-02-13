@@ -24,7 +24,7 @@ public class QuickSelect {
 			if (lo == hi) return data[lo];
 			int p = partition(data, 0, data.length, (lo+hi)/2);
 			
-			if      (k < p) hi = p-1;
+			if      (k < p) hi = p;  //check range, this should be p
 			else if (k > p) lo = p+1;				
 			else return data[p];	
 			System.out.println("lo " + lo + " hi " + hi);

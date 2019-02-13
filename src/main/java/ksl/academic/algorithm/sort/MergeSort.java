@@ -17,12 +17,7 @@ public class MergeSort implements SortingAlgorithm {
 			return;
 		}
 		
-		int[] temp = new int[n];
-		for (int i = 0; i < n; i++) {
-			temp[i] = data[i];
-		}
-		
-		sort(Arrays.copyOf(data, n), 0, n, data);
+		sort(data, 0, n, Arrays.copyOf(data, n));
 	}
 
 	
@@ -34,7 +29,7 @@ public class MergeSort implements SortingAlgorithm {
 	 * @param data - the sorted array
 	 * @return
 	 */
-	private void sort(int[] temp, int left, int right, int[] data) {
+	private void sort(int[] data, int left, int right, int[] temp) {
 		
 		if (right - left < 2) {
 			return;
@@ -83,8 +78,11 @@ public class MergeSort implements SortingAlgorithm {
 		// Initializing array
 		int data[] = { 9, 4, 8, 3, 1, 2, 5 };
 		
-		System.out.print("Initial Array: "); printArray(data, 0, data.length - 1); System.out.println();
+		System.out.print("Initial Array: "); printArray(data, 0, data.length - 1); 
+		System.out.println();
 		mergesort(data, 0, data.length - 1);
+		
+		System.out.println(Arrays.toString(data));
 	}
 
 	// Sorting in non decreasing order
@@ -125,41 +123,41 @@ public class MergeSort implements SortingAlgorithm {
 		}
 	}
 	
-	private static void merge1(int[] data, int lo, int mid, int hi) {
-		System.out.print("Left: ");
-		printArray(data, lo, mid);
-		System.out.print(" Right: ");
-		printArray(data, mid + 1, hi);
-		System.out.println();
-		int temp[] = new int[data.length];
-		int l = lo;
-		int r = hi;
-		int m = mid + 1;
-		int k = l;
-
-		while (l <= mid && m <= r) {
-			if (data[l] <= data[m]) {
-				temp[k++] = data[l++];
-			} else {
-				temp[k++] = data[m++];
-			}
-		}
-
-		while (l <= mid)
-			temp[k++] = data[l++];
-
-		while (m <= r) {
-			temp[k++] = data[m++];
-		}
-
-		for (int i1 = lo; i1 <= hi; i1++) {
-			data[i1] = temp[i1];
-		}
-
-		System.out.print("After Merge: ");
-		printArray(data, lo, hi);
-		System.out.println();
-	}
+//	private static void merge1(int[] data, int lo, int mid, int hi) {
+//		System.out.print("Left: ");
+//		printArray(data, lo, mid);
+//		System.out.print(" Right: ");
+//		printArray(data, mid + 1, hi);
+//		System.out.println();
+//		int temp[] = new int[data.length];
+//		int l = lo;
+//		int r = hi;
+//		int m = mid + 1;
+//		int k = l;
+//
+//		while (l <= mid && m <= r) {
+//			if (data[l] <= data[m]) {
+//				temp[k++] = data[l++];
+//			} else {
+//				temp[k++] = data[m++];
+//			}
+//		}
+//
+//		while (l <= mid)
+//			temp[k++] = data[l++];
+//
+//		while (m <= r) {
+//			temp[k++] = data[m++];
+//		}
+//
+//		for (int i1 = lo; i1 <= hi; i1++) {
+//			data[i1] = temp[i1];
+//		}
+//
+//		System.out.print("After Merge: ");
+//		printArray(data, lo, hi);
+//		System.out.println();
+//	}
 	
 	public static void printArray(int[] arr, int i, int j) {
 		System.out.print("[");

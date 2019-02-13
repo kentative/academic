@@ -123,4 +123,18 @@ public class Utility {
 		sb.append(data[hi] + "]");
 		return sb.toString();
 	}
+
+	public static String toString(char[][] board) {
+		StringBuilder sb = new StringBuilder();
+		for(int r = 0; r < board.length; r++) {
+			sb.append("Row: " + r + " [");
+			for (int c = 0; c < board[r].length; c++) {
+				if (c > 0) sb.append(" ");
+				sb.append(board[r][c]);
+			}
+			sb.append("]");
+			sb.append(System.lineSeparator());
+		}
+		return sb.toString();
+	}
 }
