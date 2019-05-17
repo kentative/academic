@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - EditDistance",
+            "request": "launch",
+            "mainClass": "ksl.academic.algorithm.amzn.EditDistance",
+            "projectName": "academic"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - GrayCode",
+            "request": "launch",
+            "mainClass": "ksl.academic.algorithm.amzn.GrayCode",
+            "projectName": "academic"
+        }
+    ]
+}

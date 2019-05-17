@@ -74,7 +74,7 @@ public class Mst {
 			}
 		}
 		
-		// return root
+		return root;
 	}
 
 	static class Graph {
