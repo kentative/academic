@@ -16,7 +16,7 @@ import java.util.Set;
 public class Mst {
 
     public static void main(String[] args) {
-        int graph[][] = new int[][]{
+        int[][] graph = new int[][]{
                 {0, 2, 0, 6, 0},
                 {2, 0, 3, 8, 5},
                 {0, 3, 0, 0, 7},

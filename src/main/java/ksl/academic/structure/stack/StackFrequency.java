@@ -5,119 +5,119 @@ import java.util.Collections;
 
 public class StackFrequency {
 
-	static ArrayList<Entry> items;
+    static ArrayList<Entry> items;
 
-	/**
-	 * Constructor
-	 */
-	public StackFrequency() {
+    /**
+     * Constructor
+     */
+    public StackFrequency() {
 
-		items = new ArrayList<Entry>();
-	}
+        items = new ArrayList<Entry>();
+    }
 
-	public Object pop() {
-		
-		if (items.size() == 0) return null;
-		
-		int index = items.size() - 1;
-		Entry entry = items.get(index);
-		entry.decrementFreq();
-		if (entry.getFrequency() == 0) {
-			items.remove(index);
-		}
+    public Object pop() {
 
-		return entry.data;
-	}
+        if (items.size() == 0) return null;
 
-	public void push(Object item) {
+        int index = items.size() - 1;
+        Entry entry = items.get(index);
+        entry.decrementFreq();
+        if (entry.getFrequency() == 0) {
+            items.remove(index);
+        }
 
-		Entry existingEntry = null;
-		Entry entry = new Entry(item);
-		boolean entryFound = false;
-		for (int i = items.size() - 1; i >= 0; i--) {
-			existingEntry = items.get(i);
-			if (existingEntry.equals(entry)) {
-				existingEntry.incrementFreq();
-				entryFound = true;
-				break;
-			}
-		}
+        return entry.data;
+    }
 
-		if (!entryFound) {
-			items.add(entry);
-		}
+    public void push(Object item) {
 
-		// add data
-		Collections.sort(items);
-	}
+        Entry existingEntry = null;
+        Entry entry = new Entry(item);
+        boolean entryFound = false;
+        for (int i = items.size() - 1; i >= 0; i--) {
+            existingEntry = items.get(i);
+            if (existingEntry.equals(entry)) {
+                existingEntry.incrementFreq();
+                entryFound = true;
+                break;
+            }
+        }
 
-	private class Entry implements Comparable<Entry> {
+        if (!entryFound) {
+            items.add(entry);
+        }
 
-		Object data;
-		int frequency;
+        // add data
+        Collections.sort(items);
+    }
 
-		Entry(Object data) {
-			this.data = data;
-			frequency = 1;
-		}
+    private class Entry implements Comparable<Entry> {
 
-		public void incrementFreq() {
-			frequency++;
-		}
+        Object data;
+        int frequency;
 
-		public void decrementFreq() {
-			frequency--;
-		}
+        Entry(Object data) {
+            this.data = data;
+            frequency = 1;
+        }
 
-		/**
-		 * @return the frequency
-		 */
-		public int getFrequency() {
-			return frequency;
-		}
+        public void incrementFreq() {
+            frequency++;
+        }
 
-		@Override
-		public int compareTo(Entry obj) {
-			return frequency - ((Entry) obj).frequency;
-		}
-		
-		public boolean equals(Object obj) {
-			if (obj instanceof Entry) {
-				return data.equals(((Entry) obj).data);
-			}
-			return false;
-		}
-		
-		public int hashCode() {			
-			return data.hashCode();
-		}
+        public void decrementFreq() {
+            frequency--;
+        }
 
-	}
+        /**
+         * @return the frequency
+         */
+        public int getFrequency() {
+            return frequency;
+        }
 
-	public static void main(String[] args) {
+        @Override
+        public int compareTo(Entry obj) {
+            return frequency - obj.frequency;
+        }
 
-		StackFrequency stack = new StackFrequency();
+        public boolean equals(Object obj) {
+            if (obj instanceof Entry) {
+                return data.equals(((Entry) obj).data);
+            }
+            return false;
+        }
 
-		for (int i = 0; i < 2; i++) {
-			stack.push("Item1");	
-		}
-		
-		for (int i = 0; i < 4; i++) {
-			stack.push("Item2");
-		}
+        public int hashCode() {
+            return data.hashCode();
+        }
 
-		for (int i = 0; i < 6; i++) {
-			stack.push("Item3");
-		}
-		
-		for (int i = 0; i < 7; i++) {
-			stack.push("Item4");
-		}
-		
+    }
 
-		for (int i = 0; i < 19; i++) {
-			System.out.println(stack.pop());
-		}
+    public static void main(String[] args) {
 
-	}
+        StackFrequency stack = new StackFrequency();
+
+        for (int i = 0; i < 2; i++) {
+            stack.push("Item1");
+        }
+
+        for (int i = 0; i < 4; i++) {
+            stack.push("Item2");
+        }
+
+        for (int i = 0; i < 6; i++) {
+            stack.push("Item3");
+        }
+
+        for (int i = 0; i < 7; i++) {
+            stack.push("Item4");
+        }
+
+
+        for (int i = 0; i < 19; i++) {
+            System.out.println(stack.pop());
+        }
+
+    }
 }

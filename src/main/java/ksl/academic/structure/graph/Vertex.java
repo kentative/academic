@@ -7,38 +7,38 @@ import java.util.Objects;
  */
 public final class Vertex implements Comparable<Vertex> {
 
-	public String name;
-	public int weight;
+    public String name;
+    public int weight;
 
-	public Vertex(String name) {
-		this(name, Integer.MAX_VALUE);
-	}
-	
-	public Vertex(String name, int weight) {
-		this.name = name;
-		this.weight = weight;
-	}
-	
-	public boolean equals(Object o) {
-		if (o == this) return true;
-		
-		if (!(o instanceof Vertex)) return false;
-		
-		Vertex v = (Vertex) o;
-		return (Objects.equals(name, v.name));
-	}
-	
-	public int hashCode() {
-		return Objects.hash(name);
-	}
+    public Vertex(String name) {
+        this(name, Integer.MAX_VALUE);
+    }
 
-	public String toString() {
-		return name;
-	}
+    public Vertex(String name, int weight) {
+        this.name = name;
+        this.weight = weight;
+    }
 
-	@Override
-	public int compareTo(Vertex v) {
-		if (v == null) return -1;
-		return weight - v.weight;
-	}
+    public boolean equals(Object o) {
+        if (o == this) return true;
+
+        if (!(o instanceof Vertex)) return false;
+
+        Vertex v = (Vertex) o;
+        return (Objects.equals(name, v.name));
+    }
+
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public int compareTo(Vertex v) {
+        if (v == null) return -1;
+        return weight - v.weight;
+    }
 }

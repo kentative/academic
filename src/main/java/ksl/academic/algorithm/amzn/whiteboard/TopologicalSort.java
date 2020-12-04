@@ -10,95 +10,95 @@ import java.util.Map;
 import java.util.Set;
 
 public class TopologicalSort {
-	
-	public static void main(String[] args) {
-		 Graph g = new Graph(6); 
-	        g.addEdge(5, 2);
+
+    public static void main(String[] args) {
+        Graph g = new Graph(6);
+        g.addEdge(5, 2);
 //	        g.addEdge(2, 5);
-	        g.addEdge(5, 0); 
-	        g.addEdge(4, 0); 
-	        g.addEdge(4, 1); 
-	        g.addEdge(2, 3); 
-	        g.addEdge(3, 1); 
-	  
-	        System.out.println("Following is a Topological sort of the given graph"); 
-	        System.out.println(topological(g)); 
-	}
+        g.addEdge(5, 0);
+        g.addEdge(4, 0);
+        g.addEdge(4, 1);
+        g.addEdge(2, 3);
+        g.addEdge(3, 1);
 
-	public static List<Integer> topological(Graph g) {
+        System.out.println("Following is a Topological sort of the given graph");
+        System.out.println(topological(g));
+    }
 
-		int n = g.getSize();
-		boolean[] visited = new boolean[n];
-		Deque<Integer> stack = new ArrayDeque<>(n);
-		for (int v : g.getVertices()) {
-			visit(g, v, visited, stack);
-		}
+    public static List<Integer> topological(Graph g) {
 
-		List<Integer> result = new ArrayList<>(n);
-		while (!stack.isEmpty()) {
-			result.add(stack.pop());
-		}
-		return result;
-	}
+        int n = g.getSize();
+        boolean[] visited = new boolean[n];
+        Deque<Integer> stack = new ArrayDeque<>(n);
+        for (int v : g.getVertices()) {
+            visit(g, v, visited, stack);
+        }
 
-	private static void visit(Graph g, int v, boolean[] visited, Deque<Integer> stack) {
+        List<Integer> result = new ArrayList<>(n);
+        while (!stack.isEmpty()) {
+            result.add(stack.pop());
+        }
+        return result;
+    }
 
-		if (stack.contains(v))
-			return;
+    private static void visit(Graph g, int v, boolean[] visited, Deque<Integer> stack) {
 
-		if (visited[v])
-			throw new IllegalArgumentException("Not a DAG, has a cycle");
+        if (stack.contains(v))
+            return;
 
-		visited[v] = true;
+        if (visited[v])
+            throw new IllegalArgumentException("Not a DAG, has a cycle");
 
-		for (int adj : g.getAdjList(v)) {
-			visit(g, adj, visited, stack);
-		}
+        visited[v] = true;
 
-		stack.push(v);
-	}
+        for (int adj : g.getAdjList(v)) {
+            visit(g, adj, visited, stack);
+        }
 
-	static class Graph {
-		int size;
-		Map<Integer, Set<Integer>> adjList;
+        stack.push(v);
+    }
 
-		public Graph(int size) {
-			this.size = size;
-			adjList = new HashMap<>(size);
+    static class Graph {
+        int size;
+        Map<Integer, Set<Integer>> adjList;
 
-			for (int i = 0; i < size; i++) {
-				adjList.put(i, new HashSet<>());
-			}
-		}
+        public Graph(int size) {
+            this.size = size;
+            adjList = new HashMap<>(size);
 
-		public void addEdge(int from, int to) {
-			if (!isValid(from) || !isValid(to))
-				return;
+            for (int i = 0; i < size; i++) {
+                adjList.put(i, new HashSet<>());
+            }
+        }
 
-			adjList.get(from).add(to);
-		}
+        public void addEdge(int from, int to) {
+            if (!isValid(from) || !isValid(to))
+                return;
 
-		public int getSize() {
-			return size;
-		}
+            adjList.get(from).add(to);
+        }
 
-		public Set<Integer> getAdjList(int v) {
-			if (!isValid(v))
-				return new HashSet<>();
-			return adjList.get(v);
-		}
+        public int getSize() {
+            return size;
+        }
 
-		public Set<Integer> getVertices() {
-			return adjList.keySet();
-		}
+        public Set<Integer> getAdjList(int v) {
+            if (!isValid(v))
+                return new HashSet<>();
+            return adjList.get(v);
+        }
 
-		private boolean isValid(int v) {
-			if (!adjList.containsKey(v)) {
-				throw new IllegalArgumentException("Invalid vertex: " + v);
-			}
-			return true;
-		}
+        public Set<Integer> getVertices() {
+            return adjList.keySet();
+        }
 
-	}
+        private boolean isValid(int v) {
+            if (!adjList.containsKey(v)) {
+                throw new IllegalArgumentException("Invalid vertex: " + v);
+            }
+            return true;
+        }
+
+    }
 
 }

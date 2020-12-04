@@ -7,111 +7,113 @@ import java.util.Deque;
 
 public class AddNumberItr {
 
-	static int BASE = 10;
+    static int BASE = 10;
 
-	public static void main(String[] args) {
-		Node n1 = buildNode(1, 2, 3);
-		Node n2 = buildNode(4, 5, 6, 7);
-		Node sumLinkedList = sumLinkedList(n1, n2);
-		System.out.println(print(sumLinkedList, 10));
-		
-	}
-	
-	public static Node sumLinkedList(Node a, Node b) {
-		// Check inputs
-		checkNotNull(a);
-		checkNotNull(b);
+    public static void main(String[] args) {
+        Node n1 = buildNode(1, 2, 3);
+        Node n2 = buildNode(4, 5, 6, 7);
+        Node sumLinkedList = sumLinkedList(n1, n2);
+        System.out.println(print(sumLinkedList, 10));
 
-		int aLen = length(a), bLen = length(b);
-		if (aLen < bLen) a = pad(a, bLen -aLen);
-		else if(bLen < aLen) b = pad(b, aLen - bLen);
-		
-		Deque<Node> stack = new ArrayDeque<>(aLen + bLen);
-		while (a != null) {
-			stack.push(a); a = a.next;
-			stack.push(b); b = b.next;
-		}
-		
-		Node sum = null;
-		int carry = 0;
-		while (!stack.isEmpty()) {
-			Node n1 = stack.pop();  // Bi
-			Node n2 = stack.pop();  // Ai
-			int x = n1.data + n2.data + carry;
-			carry = x/10;
-			sum = addHead(sum, x%10);
-		}
-		
-		if (carry > 0) sum = addHead(sum, carry);
-		return sum;
-	}
+    }
+
+    public static Node sumLinkedList(Node a, Node b) {
+        // Check inputs
+        checkNotNull(a);
+        checkNotNull(b);
+
+        int aLen = length(a), bLen = length(b);
+        if (aLen < bLen) a = pad(a, bLen - aLen);
+        else if (bLen < aLen) b = pad(b, aLen - bLen);
+
+        Deque<Node> stack = new ArrayDeque<>(aLen + bLen);
+        while (a != null) {
+            stack.push(a);
+            a = a.next;
+            stack.push(b);
+            b = b.next;
+        }
+
+        Node sum = null;
+        int carry = 0;
+        while (!stack.isEmpty()) {
+            Node n1 = stack.pop();  // Bi
+            Node n2 = stack.pop();  // Ai
+            int x = n1.data + n2.data + carry;
+            carry = x / 10;
+            sum = addHead(sum, x % 10);
+        }
+
+        if (carry > 0) sum = addHead(sum, carry);
+        return sum;
+    }
 
 
-	private static Node addHead(Node list, int data) {
-		Node n = new Node();
-		n.data = data;
-		if (list != null) {
-			n.next = list;
-		}
-		return n;
-	}
+    private static Node addHead(Node list, int data) {
+        Node n = new Node();
+        n.data = data;
+        if (list != null) {
+            n.next = list;
+        }
+        return n;
+    }
 
-	private static Node pad(Node n, int length) {
-		
-		if (length == 0) return n;
-		
-		for (int i = 0 ; i < length; i++) {
-			n = addHead(n, 0);
-		}
-		return n;
-	}
+    private static Node pad(Node n, int length) {
 
-	private static int length(Node n) {
+        if (length == 0) return n;
 
-		int length = 0;
-		while (n != null) {
-			length++;
-			n = n.next;
-		}
-		return length;
-	}
+        for (int i = 0; i < length; i++) {
+            n = addHead(n, 0);
+        }
+        return n;
+    }
 
-	static class Node {
-		private int data;
-		private Node next;
+    private static int length(Node n) {
 
-		public String toString() {
-			return String.valueOf(this.data);
-		}
+        int length = 0;
+        while (n != null) {
+            length++;
+            n = n.next;
+        }
+        return length;
+    }
 
-	}
+    static class Node {
+        private int data;
+        private Node next;
 
-	private static Node buildNode(int... data) {
+        public String toString() {
+            return String.valueOf(this.data);
+        }
 
-		Node head = new Node();
-		head.data = data[0];
+    }
 
-		Node list = head;
-		for (int i = 1; i < data.length; i++) {
-			Node next = new Node();
-			next.data = data[i];
-			list.next = next;
-			list = next;
+    private static Node buildNode(int... data) {
 
-		}
-		return head;
-	}
-	
-	private static String print(Node n, int max) {
+        Node head = new Node();
+        head.data = data[0];
 
-		StringBuilder sb = new StringBuilder();
-		Node x = n;
-		int i = 0;
-		while (x != null) {
-			sb.append(x.data).append(" ");
-			x = x.next;
-			if (++i >= max) break;
-		}
-		return sb.toString();
-	}
+        Node list = head;
+        for (int i = 1; i < data.length; i++) {
+            Node next = new Node();
+            next.data = data[i];
+            list.next = next;
+            list = next;
+
+        }
+        return head;
+    }
+
+    private static String print(Node n, int max) {
+
+        StringBuilder sb = new StringBuilder();
+        Node x = n;
+        int i = 0;
+        while (x != null) {
+            sb.append(x.data).append(" ");
+            x = x.next;
+            if (++i >= max) break;
+        }
+        return sb.toString();
+    }
 }

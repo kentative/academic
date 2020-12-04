@@ -58,7 +58,6 @@ public class Increment {
             isNeg = true;
             number[0] *= -1;
         }
-        ;
 
         int c = (isNeg) ? -1 : 1;
         for (int i = number.length - 1; i >= 0 && c != 0; i--) {

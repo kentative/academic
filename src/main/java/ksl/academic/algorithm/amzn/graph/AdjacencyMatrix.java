@@ -72,7 +72,7 @@ public class AdjacencyMatrix {
         //return adjMat;
     }
 
-    public static int[][] arrayCondenser(int[][] adjMat, int [] array) {
+    public static int[][] arrayCondenser(int[][] adjMat, int[] array) {
         int[][] condensedArray = new int[array.length][array.length];
         //adjMat = floydWarshall(adjMat, N);
 
@@ -109,7 +109,8 @@ public class AdjacencyMatrix {
             System.out.println();
         }
     }
-    public static void printCondensedGrid(int[][] adjMat, int stores[]) {
+
+    public static void printCondensedGrid(int[][] adjMat, int[] stores) {
         System.out.println("Condensed grid: ");
         System.out.printf("%5s", " ");
         for (int i = 0; i < stores.length; i++) {
@@ -136,13 +137,13 @@ public class AdjacencyMatrix {
 
     public static void main(String[] args) {
 
-        int adjMat[][] = new int[NUM_NODES][NUM_NODES];
-        int[] stores = { A, B, C, D, E, F, G, H, I, W };
+        int[][] adjMat = new int[NUM_NODES][NUM_NODES];
+        int[] stores = {A, B, C, D, E, F, G, H, I, W};
 
         floydWarshall(adjMat);
 
         printGrid(adjMat);
-        int condensedArray[][] = arrayCondenser(adjMat, stores);
+        int[][] condensedArray = arrayCondenser(adjMat, stores);
         printCondensedGrid(condensedArray, stores);
 
         System.out.println();

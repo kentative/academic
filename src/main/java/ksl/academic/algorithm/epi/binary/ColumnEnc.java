@@ -5,27 +5,27 @@ import org.slf4j.LoggerFactory;
 
 public class ColumnEnc {
 
-	private static Logger logger = LoggerFactory.getLogger(ColumnEnc.class);
-	
-	public static void main(String[] args) {
+    private static final Logger logger = LoggerFactory.getLogger(ColumnEnc.class);
 
-		logger.info(String.valueOf(colunEnc("AAZ")));
-		
-	}
-	
-	static int colunEnc(String id) {
-		
-		int base = 26;
-		int result = 0;
-		for (int i = 0; i < id.length(); i++) {
-			result = (result * base) + getValue(id.charAt(i));
-		}
-		return result;
-	}
+    public static void main(String[] args) {
 
-	static int getValue(char c) {
-		if (c >= 'A' && c <= 'Z') return c - 'A' +1;
-		return -1;
-	}
-	
+        logger.info(String.valueOf(colunEnc("AAZ")));
+
+    }
+
+    static int colunEnc(String id) {
+
+        int base = 26;
+        int result = 0;
+        for (int i = 0; i < id.length(); i++) {
+            result = (result * base) + getValue(id.charAt(i));
+        }
+        return result;
+    }
+
+    static int getValue(char c) {
+        if (c >= 'A' && c <= 'Z') return c - 'A' + 1;
+        return -1;
+    }
+
 }

@@ -39,6 +39,9 @@ dependencies {
     compile 'com.google.guava:guava:+'
     compile 'junit:junit:+'
 
+    // https://mvnrepository.com/artifact/com.google.inject/guice
+    compile group: 'com.google.inject', name: 'guice', version: '4.0'
+
     compile group: 'org.jgrapht', name: 'jgrapht-core', version: '1.2.0'
 
     compile 'junit:junit:+'
@@ -87,5 +90,5 @@ jar {
 artifacts {
     archives jar
     archives sourcesJar
-    archives javadocJar
+//    archives javadocJar
 }

@@ -5,21 +5,21 @@ import java.util.List;
 
 /**
  * N-ary Node
- * @author Kent
  *
+ * @author Kent
  */
 public class NNode {
 
-	int data;
-	List<NNode> nodes;
-	
-	public NNode(int data) {
-		this.data = data;
-		nodes = new LinkedList<>();
-	}
-	
-	public NNode addNode(NNode n) {
-		nodes.add(n);
-		return n;
-	}
+    int data;
+    List<NNode> nodes;
+
+    public NNode(int data) {
+        this.data = data;
+        nodes = new LinkedList<>();
+    }
+
+    public NNode addNode(NNode n) {
+        nodes.add(n);
+        return n;
+    }
 }

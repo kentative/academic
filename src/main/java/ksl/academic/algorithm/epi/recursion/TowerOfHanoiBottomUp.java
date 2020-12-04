@@ -1,96 +1,95 @@
 package ksl.academic.algorithm.epi.recursion;
 
-/** Example of trade-offs:  the Towers of Hanoi with memoization
- *  For each of the six permutation of (src,dst,tmp) and for each n,
- *  save the steps for hanoi(n,src,dst,tmp).
- *
- *  By doing a bottom-up construction, one requires only two rows in
- *  the matrix of all solutions:  previous and current.
- *
- *  The permutation can be stored as a single octal digit.  Each
- *  permutation is of the numbers 0, 1, and 2, meaning that all must
- *  total to 3, and only an ordered pair needs to be retained.  This
- *  will be considered to be src and dst.  If this ordered pair is
- *  considered as a base-3 number, then the range is 01 through 21
- *  --- meaning the magnitudes are 1 through 7.
- *
- *  The space complexity, however, is nasty:  the two rows have
- *  (2)*6 strings --- with three numbers, there are six permutations.
- *  Each string, however, contains the full solution for the problem
- *  of a given value of n --- pow(2, n) - 1 disk movements.
- *
- *  Above 23: java -Xms1024m -Xmx1024m
- *
- *  Perpetrator:  Timothy Rolfe
+/**
+ * Example of trade-offs:  the Towers of Hanoi with memoization
+ * For each of the six permutation of (src,dst,tmp) and for each n,
+ * save the steps for hanoi(n,src,dst,tmp).
+ * <p>
+ * By doing a bottom-up construction, one requires only two rows in
+ * the matrix of all solutions:  previous and current.
+ * <p>
+ * The permutation can be stored as a single octal digit.  Each
+ * permutation is of the numbers 0, 1, and 2, meaning that all must
+ * total to 3, and only an ordered pair needs to be retained.  This
+ * will be considered to be src and dst.  If this ordered pair is
+ * considered as a base-3 number, then the range is 01 through 21
+ * --- meaning the magnitudes are 1 through 7.
+ * <p>
+ * The space complexity, however, is nasty:  the two rows have
+ * (2)*6 strings --- with three numbers, there are six permutations.
+ * Each string, however, contains the full solution for the problem
+ * of a given value of n --- pow(2, n) - 1 disk movements.
+ * <p>
+ * Above 23: java -Xms1024m -Xmx1024m
+ * <p>
+ * Perpetrator:  Timothy Rolfe
  */
 public class TowerOfHanoiBottomUp {
-	
-   static String[] solve(int n)
-   {  // 6 empty strings for 01 through 21; null for unused cells 0 and 4
-      String[] prev = { null, "", "", "", null, "", "", ""  },
-               curr = new String[8],   // compute into this
-               temp;                   // interchange prev and curr
-      
-      int i, // Outer loop on level of solution
-          j; // Inner loop for the six problems at level i
 
-      // Final result will be in prev
-      for (i = 1; i <= n; i++)
-      {  // Populate curr from prev
-         for (j = 0; j < curr.length; j++)
-         {  // 00, 11, and 22 are not allowed
-            int src = j/3, dst = j%3,
-                tmp = 3 - src - dst;
+    static String[] solve(int n) {  // 6 empty strings for 01 through 21; null for unused cells 0 and 4
+        String[] prev = {null, "", "", "", null, "", "", ""},
+                curr = new String[8],   // compute into this
+                temp;                   // interchange prev and curr
 
-            if (src == dst) continue;  // I.e., 00 or 11
-            //     h(i-1,src,tmp,dst)   src to dst    h(i-1,tmp,dst,src)
-            curr[j] = prev[src*3+tmp] + (src*3+dst) + prev[tmp*3+dst];
-         }
-         // Swap curr and prev.
-         temp = curr;  curr = prev;  prev = temp;
-      }
+        int i, // Outer loop on level of solution
+                j; // Inner loop for the six problems at level i
 
-      return prev;
-   }
+        // Final result will be in prev
+        for (i = 1; i <= n; i++) {  // Populate curr from prev
+            for (j = 0; j < curr.length; j++) {  // 00, 11, and 22 are not allowed
+                int src = j / 3, dst = j % 3,
+                        tmp = 3 - src - dst;
 
-   static String recHanoi(int n, int src, int dst, int tmp)
-   {  String addend;
-      if (n == 0) return "";
-      // Two-digit data movement treated as base-3:  01 through 21
-      // Get the magnitude of the base-3 number and store as octal
-      addend = String.format("%1o", 3*src + dst);
-      return recHanoi(n-1, src, tmp, dst) + addend +
-             recHanoi(n-1, tmp, dst, src);
-   }
+                if (src == dst) continue;  // I.e., 00 or 11
+                //     h(i-1,src,tmp,dst)   src to dst    h(i-1,tmp,dst,src)
+                curr[j] = prev[src * 3 + tmp] + (src * 3 + dst) + prev[tmp * 3 + dst];
+            }
+            // Swap curr and prev.
+            temp = curr;
+            curr = prev;
+            prev = temp;
+        }
 
-   public static void main(String[] args)
-   {  // Specifications for the recursive calls
-      int[][] prob = { { 0, 1, 2 },
-                       { 0, 2, 1 },
-                       { 1, 0, 2 },
-                       { 1, 2, 0 },
-                       { 2, 0, 1 },
-                       { 2, 1, 0 } };
-      String[] soln;
-      int k, n = args.length > 0 ? Integer.parseInt(args[0])
-                                 : 4;
-      long elapsed = -System.nanoTime();
+        return prev;
+    }
 
-      soln = solve(n);
-      elapsed += System.nanoTime();
-      System.out.printf("Dynamic solutions in %.3f sec.\n", 1E-9*elapsed);
-      elapsed = -System.nanoTime();
-      for (k = 0; k < prob.length; k++)
-      {  String rec = recHanoi(n, prob[k][0], prob[k][1], prob[k][2]);
-         int idx = prob[k][0]*3+prob[k][1];
+    static String recHanoi(int n, int src, int dst, int tmp) {
+        String addend;
+        if (n == 0) return "";
+        // Two-digit data movement treated as base-3:  01 through 21
+        // Get the magnitude of the base-3 number and store as octal
+        addend = String.format("%1o", 3 * src + dst);
+        return recHanoi(n - 1, src, tmp, dst) + addend +
+                recHanoi(n - 1, tmp, dst, src);
+    }
 
-         System.out.printf("%d:  (%d, %d, %d) ", k,
-                           prob[k][0], prob[k][1], prob[k][2]);
-         System.out.printf("%s\n", rec.equals(soln[idx]));
-      }
-      elapsed += System.nanoTime();
-      System.out.printf("Recursive solutions in %.3f sec.\n", 1E-9*elapsed);
-   }
+    public static void main(String[] args) {  // Specifications for the recursive calls
+        int[][] prob = {{0, 1, 2},
+                {0, 2, 1},
+                {1, 0, 2},
+                {1, 2, 0},
+                {2, 0, 1},
+                {2, 1, 0}};
+        String[] soln;
+        int k, n = args.length > 0 ? Integer.parseInt(args[0])
+                : 4;
+        long elapsed = -System.nanoTime();
+
+        soln = solve(n);
+        elapsed += System.nanoTime();
+        System.out.printf("Dynamic solutions in %.3f sec.\n", 1E-9 * elapsed);
+        elapsed = -System.nanoTime();
+        for (k = 0; k < prob.length; k++) {
+            String rec = recHanoi(n, prob[k][0], prob[k][1], prob[k][2]);
+            int idx = prob[k][0] * 3 + prob[k][1];
+
+            System.out.printf("%d:  (%d, %d, %d) ", k,
+                    prob[k][0], prob[k][1], prob[k][2]);
+            System.out.printf("%s\n", rec.equals(soln[idx]));
+        }
+        elapsed += System.nanoTime();
+        System.out.printf("Recursive solutions in %.3f sec.\n", 1E-9 * elapsed);
+    }
 }
 /* The program BottomTime.java invokes BottomTime.solve(n) for a range
    of sizes and captures elapsed time and required space for each size.

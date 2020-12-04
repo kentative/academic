@@ -3,15 +3,17 @@ package ksl.academic.algorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.charset.StandardCharsets;
+
 public class Utility {
 
-    private static Logger logger = LoggerFactory.getLogger(Utility.class);
+    private static final Logger logger = LoggerFactory.getLogger(Utility.class);
 
 
     public static String toBinaryString(String x) throws Exception {
 
         // US-ASCII or UTF-8
-        byte[] bytes = x.getBytes("UTF-8");
+        byte[] bytes = x.getBytes(StandardCharsets.UTF_8);
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < bytes.length; i++) {

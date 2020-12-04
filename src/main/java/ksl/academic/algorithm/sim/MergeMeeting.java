@@ -10,140 +10,140 @@ import java.util.Set;
 // https://www.interviewcake.com/question/java/merging-ranges
 public class MergeMeeting {
 
-	public static void main(String[] args) {
-		Meeting[] meetings = new Meeting[] { 
-				new Meeting(0, 1), 
-				new Meeting(3, 5), 
-				new Meeting(4, 8),
-				new Meeting(10, 12), 
-				new Meeting(9, 10) 
-			};
+    public static void main(String[] args) {
+        Meeting[] meetings = new Meeting[]{
+                new Meeting(0, 1),
+                new Meeting(3, 5),
+                new Meeting(4, 8),
+                new Meeting(10, 12),
+                new Meeting(9, 10)
+        };
 
-		Meeting[] mergeRange = mergeRange(meetings);
-		for (Meeting m : mergeRange) {
-			System.out.println(m);
-		}
-	}
+        Meeting[] mergeRange = mergeRange(meetings);
+        for (Meeting m : mergeRange) {
+            System.out.println(m);
+        }
+    }
 
-	public static Meeting[] mergeRange(Meeting[] meetings) {
-		int n = meetings.length;
+    public static Meeting[] mergeRange(Meeting[] meetings) {
+        int n = meetings.length;
 
-		if (n == 0 || n == 1) return meetings;
-		List<Meeting> mergedList = new ArrayList<>(n);
-		
-		Set<Meeting> visited = new HashSet<>(); 
+        if (n == 0 || n == 1) return meetings;
+        List<Meeting> mergedList = new ArrayList<>(n);
 
-		for (int i = 0; i < n; i++) {
-			Meeting m = meetings[i];
-			if (visited.contains(m)) continue;
+        Set<Meeting> visited = new HashSet<>();
 
-			List<Meeting> olList = getOverlapping(m, meetings);
-			while (!olList.isEmpty()) {
-				Meeting ol = olList.remove(0);
-				visited.add(ol);
-				m = merge(m, ol);
-			}
-			mergedList.add(m);
-		}
-		
-		return mergedList.toArray(new Meeting[mergedList.size()]);
-	}
-	
-	private static List<Meeting> getOverlapping(Meeting m, Meeting[] meetings) {
-		
-		List<Meeting> overlapped = new LinkedList<>();
-		for (int i = 0; i < meetings.length; i++) {
-			if (isOverlapping(m, meetings[i])) {
-				overlapped.add(meetings[i]);
-			}
-		}
-		return overlapped;
-	}
+        for (int i = 0; i < n; i++) {
+            Meeting m = meetings[i];
+            if (visited.contains(m)) continue;
 
-	// This is the incorrect version, on White Board
-	public static Meeting[] mergeRangeWB(Meeting[] meetings) {
-		int n = meetings.length;
+            List<Meeting> olList = getOverlapping(m, meetings);
+            while (!olList.isEmpty()) {
+                Meeting ol = olList.remove(0);
+                visited.add(ol);
+                m = merge(m, ol);
+            }
+            mergedList.add(m);
+        }
 
-		if (n == 0 || n == 1) return meetings;
-		List<Meeting> mergedList = new ArrayList<>(n);
-		
-		Set<Meeting> visited = new HashSet<>(); 
+        return mergedList.toArray(new Meeting[mergedList.size()]);
+    }
 
-		for (int i = 0; i < n-1; i++) {
-			Meeting m = meetings[i];
-			
-			if (visited.contains(m)) {
-				continue;
-			}
+    private static List<Meeting> getOverlapping(Meeting m, Meeting[] meetings) {
 
-			for (int j = 0; j < n; j++) {
-				if (isOverlapping(m, meetings[j])) {
-					m = merge(m, meetings[j]);
-				}
-			}
-			if (!mergedList.contains(m))
-			mergedList.add(m);
-		}
-		
-		return mergedList.toArray(new Meeting[mergedList.size()]);
-	}
+        List<Meeting> overlapped = new LinkedList<>();
+        for (int i = 0; i < meetings.length; i++) {
+            if (isOverlapping(m, meetings[i])) {
+                overlapped.add(meetings[i]);
+            }
+        }
+        return overlapped;
+    }
 
-	
-	private static Meeting merge(Meeting m1, Meeting m2) {
-		Meeting m = new Meeting(0, 0);
-		m.startTime = Math.min(m1.startTime, m2.startTime);
-		m.endTime = Math.max(m1.endTime, m2.endTime);
-		return m;
-	}
+    // This is the incorrect version, on White Board
+    public static Meeting[] mergeRangeWB(Meeting[] meetings) {
+        int n = meetings.length;
 
-	private static boolean isOverlapping(Meeting m1, Meeting m2) {
-		return m1.startTime <= m2.endTime && m1.startTime >= m2.startTime
-				|| m1.endTime >= m2.startTime && m1.endTime <= m2.endTime;
-	}
+        if (n == 0 || n == 1) return meetings;
+        List<Meeting> mergedList = new ArrayList<>(n);
 
-	public static class Meeting {
+        Set<Meeting> visited = new HashSet<>();
 
-		private int startTime;
-		private int endTime;
+        for (int i = 0; i < n - 1; i++) {
+            Meeting m = meetings[i];
 
-		public Meeting(int startTime, int endTime) {
-			// number of 30 min blocks past 9:00 am
-			this.startTime = startTime;
-			this.endTime = endTime;
-		}
+            if (visited.contains(m)) {
+                continue;
+            }
 
-		public int getStartTime() {
-			return startTime;
-		}
+            for (int j = 0; j < n; j++) {
+                if (isOverlapping(m, meetings[j])) {
+                    m = merge(m, meetings[j]);
+                }
+            }
+            if (!mergedList.contains(m))
+                mergedList.add(m);
+        }
 
-		public void setStartTime(int startTime) {
-			this.startTime = startTime;
-		}
+        return mergedList.toArray(new Meeting[mergedList.size()]);
+    }
 
-		public int getEndTime() {
-			return endTime;
-		}
 
-		public void setEndTime(int endTime) {
-			this.endTime = endTime;
-		}
-		
-		public int hashCode() {
-			return Objects.hash(startTime, endTime);
-		}
-		
-		public boolean equals(Object obj) {
-			if (obj == this) return true;
-			if (obj == null) return false;
-			if (obj.getClass() != this.getClass()) return false;
-			
-			Meeting other = (Meeting) obj;
-			return (startTime ==  other.startTime) && (endTime == other.endTime);
-		}
-		
-		public String toString() {
-			return "(" + startTime + ", " + endTime +")";
-		}
-	}
+    private static Meeting merge(Meeting m1, Meeting m2) {
+        Meeting m = new Meeting(0, 0);
+        m.startTime = Math.min(m1.startTime, m2.startTime);
+        m.endTime = Math.max(m1.endTime, m2.endTime);
+        return m;
+    }
+
+    private static boolean isOverlapping(Meeting m1, Meeting m2) {
+        return m1.startTime <= m2.endTime && m1.startTime >= m2.startTime
+                || m1.endTime >= m2.startTime && m1.endTime <= m2.endTime;
+    }
+
+    public static class Meeting {
+
+        private int startTime;
+        private int endTime;
+
+        public Meeting(int startTime, int endTime) {
+            // number of 30 min blocks past 9:00 am
+            this.startTime = startTime;
+            this.endTime = endTime;
+        }
+
+        public int getStartTime() {
+            return startTime;
+        }
+
+        public void setStartTime(int startTime) {
+            this.startTime = startTime;
+        }
+
+        public int getEndTime() {
+            return endTime;
+        }
+
+        public void setEndTime(int endTime) {
+            this.endTime = endTime;
+        }
+
+        public int hashCode() {
+            return Objects.hash(startTime, endTime);
+        }
+
+        public boolean equals(Object obj) {
+            if (obj == this) return true;
+            if (obj == null) return false;
+            if (obj.getClass() != this.getClass()) return false;
+
+            Meeting other = (Meeting) obj;
+            return (startTime == other.startTime) && (endTime == other.endTime);
+        }
+
+        public String toString() {
+            return "(" + startTime + ", " + endTime + ")";
+        }
+    }
 
 }

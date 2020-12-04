@@ -7,24 +7,23 @@ import java.util.List;
 public class VerticalTreePrinter {
 
 
+    public static void print(Node root) {
+        int maxLevel = findMaxLevel(root);
+        printVTree(Collections.singletonList(root), 1, maxLevel);
+    }
 
-	public static void print(Node root) {
-		int maxLevel = findMaxLevel(root);
-		printVTree(Collections.singletonList(root), 1, maxLevel);
-	}
-	
-	private static void printVTree(List<Node> nodes, int level, int maxLevel) {
-		
-		if (nodes == null || nodes.isEmpty() || level > maxLevel) return;
-		
-		int floor     = 1 + maxLevel - level;
-		int indent    = (1 << floor) - 1;
-		int spaces    = 1 << (floor + 1);
-		int edgeLines = 1 << (floor - 1);
+    private static void printVTree(List<Node> nodes, int level, int maxLevel) {
 
-		int offset = String.valueOf(nodes.get(0).data).length()/2;
-		printWhitespaces(indent - offset);
-		List<Node> newNodes = new ArrayList<Node>();
+        if (nodes == null || nodes.isEmpty() || level > maxLevel) return;
+
+        int floor = 1 + maxLevel - level;
+        int indent = (1 << floor) - 1;
+        int spaces = 1 << (floor + 1);
+        int edgeLines = 1 << (floor - 1);
+
+        int offset = String.valueOf(nodes.get(0).data).length() / 2;
+        printWhitespaces(indent - offset);
+        List<Node> newNodes = new ArrayList<Node>();
         for (Node node : nodes) {
             if (node != null) {
                 System.out.print(node.data);
@@ -39,7 +38,7 @@ public class VerticalTreePrinter {
             offset = String.valueOf(node.data).length();
             printWhitespaces(spaces - offset);
         }
-        System.out.println("");
+        System.out.println();
 
         for (int i = 1; i <= edgeLines; i++) {
             for (int j = 0; j < nodes.size(); j++) {
@@ -64,20 +63,20 @@ public class VerticalTreePrinter {
                 printWhitespaces(edgeLines + edgeLines - i);
             }
 
-            System.out.println("");
+            System.out.println();
         }
 
         printVTree(newNodes, level + 1, maxLevel);
-	}
+    }
 
-	private static void printWhitespaces(int count) {
+    private static void printWhitespaces(int count) {
         for (int i = 0; i < count; i++)
             System.out.print(" ");
     }
-	
-	public static int findMaxLevel(Node root) {
 
-		if (root == null) return 0;
-		return Math.max(findMaxLevel(root.left), findMaxLevel(root.right)) + 1;
-	}
+    public static int findMaxLevel(Node root) {
+
+        if (root == null) return 0;
+        return Math.max(findMaxLevel(root.left), findMaxLevel(root.right)) + 1;
+    }
 }

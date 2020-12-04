@@ -25,8 +25,8 @@ public class DuffleBagFractional {
         double totalValue = 0d;
         for (CakeType c : cakes) {
 
-            int w = (int) c.weight;
-            int v = (int) c.value;
+            int w = c.weight;
+            int v = c.value;
 
             if (w <= cap) {
                 cap = cap - w;
